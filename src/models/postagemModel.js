@@ -28,7 +28,24 @@ function postagensUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+
+function  usuarioSelecionado(nomePerfilUsuario) {
+    console.log("ACESSEI A POSTAGEM DO USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function usuarioSelecionado())");
+    
+    console.log(`Buscando postagens do usuário ${nomePerfilUsuario}`);
+    var instrucaoSql = `
+        SELECT p.*, u.nomeUsuario
+        FROM tbPostagem AS p
+        JOIN tbUsuario AS u ON p.fkUsuario = u.idUsuario
+        WHERE u.nomePerfilUsuario = '${nomePerfilUsuario}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     listar,
-    postagensUsuario
+    postagensUsuario,
+    usuarioSelecionado
 }

@@ -10,4 +10,8 @@ router.get("/postagensUsuario", function (req, res) {
     postagemControler.postagensUsuario(req, res);
 });
 
+router.get("/usuarioSelecionado", function (req, res) {
+    postagemControler.usuarioSelecionado(req, res);
+});
+
 module.exports = router;

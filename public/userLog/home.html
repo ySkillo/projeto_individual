@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../js/sessao.js"></script>
 </head>
+
 <body onload="validarSessao()">
     <a href="../dashboard/cards.html">dashboard</a>
     <a href="perfil.html">perfil</a>
@@ -17,16 +19,19 @@
     </div>
 
     <div id="postagens"></div>
+    <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar">
+    <div id="usuarios_pesquisa" style="color: #f00;"></div>
 </body>
+
 </html>
 
 
 <script>
-        //Listando postagens
-        //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GET
-        fetch("/postagem/listar", {
-            method: "GET",
-        }).then(res=> res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+    //Listando postagens
+    //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GET
+    fetch("/postagem/listar", {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
         .then(dados => {
             dados.forEach(post => {//ele passa por cada postagem com o forEach
                 postagens.innerHTML += `
@@ -38,8 +43,84 @@
             });
         })
 
+
+    function fazerPesquisa() {
+
+        var pesquisar = input_pesquisar.value;
+        var listar = [];
+
+        if (pesquisar === "") {
+            usuarios_pesquisa.innerHTML = "";
+        } else {
+            fetch(`/usuarios/pesquisarUsuario?nomePerfilUsuario=${encodeURIComponent(pesquisar)}`, { ///usuarios/pesquisarUsuario?nomePerfilUsuario=(letra ou nome)
+                method: "GET",
+            }).then(res => {
+                if (res.status === 204) {
+                    return [];
+                }
+                return res.json();
+            }).then(dados => {
+                listar = dados.map(post => post.nomePerfilUsuario); //.map percorre a array
+                usuarios_pesquisa.innerHTML = listar //atualiza a DOM com os nomes
+
+                    .map(nome =>
+                        `<h3 onclick="usuarioSelecionado(decodeURIComponent('${encodeURIComponent(nome)}'))">${nome}</h3>`
+                    ).join("");
+
+            }).catch(erro => {
+                console.error("Erro na busca de usuários:", erro);
+                usuarios_pesquisa.innerHTML = "<p>Erro ao buscar usuários.</p>";
+            });
+        }
+    }
+
+    function usuarioSelecionado(armazenarUsuario) {
+        var pesquisar = input_pesquisar.value;
+
+        fetch(`/usuarios/pesquisarUsuario?nomePerfilUsuario=${encodeURIComponent(pesquisar)}`, { ///usuarios/pesquisarUsuario?nomePerfilUsuario=(letra ou nome)
+            method: "GET",
+        }).then(res => {
+            if (res.status === 204) {
+                return [];
+            }
+            return res.json();
+        }).then(dados => {
+            listar = dados.map(post => post.nomePerfilUsuario); //.map percorre a array
+            if (!listar.includes(pesquisar)) {
+                console.log("nome não existe");
+            } else {
+                console.log("nome existe");
+                sessionStorage.NOME_PERFIL_USUARIO = pesquisar;    
+                setTimeout(function () {
+                    window.location = "perfilSelecionado.html";
+                }, 1000);                        
+            }
+        }).catch(erro => {
+            console.error("Erro na busca de usuários:", erro);
+            usuarios_pesquisa.innerHTML = "<p>Erro ao buscar usuários.</p>";
+        });
+
+        if(armazenarUsuario){
+                sessionStorage.NOME_PERFIL_USUARIO = armazenarUsuario;
+                setTimeout(function () {
+                    window.location = "perfilSelecionado.html";
+                }, 1000);   
+        }
+        
+        
+
+        
+
+
+
+
+
+
+
+
+
+
+
+    }
+
 </script>
-
-
-
-

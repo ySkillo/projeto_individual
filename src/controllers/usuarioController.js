@@ -84,7 +84,25 @@ function cadastrar(req, res) {
     }
 }
 
+
+
+function pesquisarUsuario(req, res){
+    const nomePerfilUsuario = req.query.nomePerfilUsuario; // vai conter "o nome inserido na pesquisa"
+    usuarioModel.pesquisarUsuario(nomePerfilUsuario).then(function (resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        }else{
+            res.status(204).send("nenhum resultado encontrado!");
+        }
+    }).catch(function (erro){
+        console.log(erro)   
+        console.log("Houve um erro ao buscar usuario: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     autenticar,
+    pesquisarUsuario,
     cadastrar
 }

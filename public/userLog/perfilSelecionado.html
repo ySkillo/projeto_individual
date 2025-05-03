@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <script src="../js/sessao.js"></script>
-    
+    <title>Document</title>
 </head>
-<body onload="validarSessao()">
-    <h3>eai, <span id="b_usuario">usuario</span>!</h3>
-    <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
+<body>
+    
 
     <div id="postagens"></div>
+    
 </body>
 </html>
 
 
 <script>
-    
-    var idUsuario = sessionStorage.ID_USUARIO;
-    fetch(`/postagem/postagensUsuario?idUsuario=${idUsuario}`, {
+
+    var usuarioSelecionado = sessionStorage.NOME_PERFIL_USUARIO;
+    fetch(`/postagem/usuarioSelecionado?nomePerfilUsuario=${encodeURIComponent(usuarioSelecionado)}`, {
         method: "GET"
     }).then(res => {
         if (res.status === 204) {

@@ -11,6 +11,17 @@ function autenticar(email, senha) {
 }
 
 
+//pesquisa de usuario
+function pesquisarUsuario(nomePerfilUsuario) {
+    console.log("ACESSEI O USUARIO MODEL");
+    instrucaoSql = `
+        SELECT nomePerfilUsuario FROM tbUsuario
+        WHERE nomePerfilUsuario LIKE '${nomePerfilUsuario}%';
+    `;
+    return database.executar(instrucaoSql);
+}
+
+
 
 // Coloque os mesmos parâmetros aqui. Vá para a var instrucaoSql
 function cadastrar(nome, email, senha, cpf) {
@@ -27,5 +38,6 @@ function cadastrar(nome, email, senha, cpf) {
 
 module.exports = {
     autenticar,
+    pesquisarUsuario,
     cadastrar
 };
