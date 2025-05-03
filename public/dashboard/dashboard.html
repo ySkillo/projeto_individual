@@ -36,6 +36,7 @@
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+                <h3><span id="b_cpf">seu-cpf-bem-aq</span></h3>
             </div>
 
             <div class="btn-nav-white">
@@ -81,6 +82,8 @@
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    b_cpf.innerHTML = sessionStorage.CPF_USUARIO;
+
 
     let proximaAtualizacao;
 

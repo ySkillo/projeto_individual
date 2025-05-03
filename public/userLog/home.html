@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/sessao.js"></script>
+</head>
+<body onload="validarSessao()">
+    <a href="../dashboard/cards.html">dashboard</a>
+    <a href="perfil.html">perfil</a>
+
+    <h3>eai, <span id="b_usuario">usuario</span>!</h3>
+    <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
+    <div class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+    </div>
+
+    <div id="postagens"></div>
+</body>
+</html>
+
+
+<script>
+        //Listando postagens
+        //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GET
+        fetch("/postagem/listar", {
+            method: "GET",
+        }).then(res=> res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            dados.forEach(post => {//ele passa por cada postagem com o forEach
+                postagens.innerHTML += `
+                    <h3>${post.nomeUsuario}</h3>
+                    <h3>${post.tituloPostagem}</h3>
+                    <h3>${post.imagemPostagem}</h3>
+                    <h3>${post.descricaoPostagem}</h3>
+                `
+            });
+        })
+
+</script>
+
+
+
+
