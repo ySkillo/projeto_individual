@@ -6,12 +6,11 @@ function listar() {
         select p.*, u.nomeUsuario from tbPostagem as p 
             join tbUsuario as u
 	            on p.fkUsuario = u.idUsuario
-                order by p.idPostagem desc;
+                order by p.idPostagem asc;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
-
 
 
 function postagensUsuario(idUsuario) {

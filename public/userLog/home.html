@@ -30,7 +30,10 @@
 <script>
 
     //Listando postagens
-    //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GET
+    //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GE
+    
+
+
     fetch("/postagem/listar", {
         method: "GET",
     }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
@@ -41,16 +44,30 @@
             container.innerHTML += "";
 
             dados.forEach(post => {//ele passa por cada postagem com o forEach
-                container.innerHTML += `
-                <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
-                    <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
-                    <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
-                    <div class="imagem">${post.imagemPostagem}</div>
-                    <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
-                </div>
-            `;
-            });
+                
+                    
+
+                     container.innerHTML += `
+                            <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                                <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                                <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
+                                <div class="imagem">${post.imagemPostagem}</div>
+                                <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                                <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
+                                    <p>Nome User</p>    
+                                    <p>COMENTARIO...</p>    
+                                </div>
+                            </div>
+                        `;
         })
+
+
+
+            });
+
+
+        
 
 
     function fazerPesquisa() {
@@ -115,20 +132,69 @@
                 }, 1000);   
         }
         
-        
+     }
+
+
+
+
+
+     function comentarios(botao){
+
+        const divPostagem = botao.parentElement;
+
+        // 2. Pega só o boxComentarios dessa postagem
+        const box = divPostagem.querySelector(".boxComentarios");
+
+        const clicado = botao.classList.toggle("clicado");
+        //toggle retorna um valor booleano 
+        //se ja tiver a class ele tira se não tiver ele adiciona
+        //adicona (true) remove(false)
+
+        if (clicado) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+            
+
+
+
+
+
+     };
 
         
+        function comentariosRealizados(botao, armazenarComentario){
+
+            const divPostagem = botao.parentElement;
+            const box = divPostagem.querySelector(".boxComentarios");
 
 
 
+            fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
+                    method: "GET",
+                }).then(res => res.json())
+                    .then(usuario => {
+                        box.innerHTML = "";
+                        usuario.forEach(post => { 
+                            box.innerHTML += `
+                                <p>${post.nomePerfilUsuario}</p>
+                                <p>Data e Hora: ${post.dtInteracao}</p>
+                                <p style="border-bottom: 1px solid black; margin-bottom: 40px">${post.descricaoComentario}</p>
+                            `;
 
+                        })
 
+                        
 
+                        
+            
+                        
+                        
+                        
+            })
 
-
-
-
-
-    }
+            
+        }
 
 </script>
