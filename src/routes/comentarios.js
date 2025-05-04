@@ -6,4 +6,8 @@ router.get("/comentarioRealizado", function (req, res) {
     comentarioController.comentarioRealizado(req, res); // nome da função correto
 });
 
+router.post("/fazerComentario", function (req, res) {
+    comentarioController.fazerComentario(req, res); // nome da função correto
+});
+
 module.exports = router;

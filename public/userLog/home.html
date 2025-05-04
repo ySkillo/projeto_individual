@@ -24,6 +24,7 @@
     </div>
 </body>
 
+
 </html>
 
 
@@ -31,8 +32,8 @@
 
     //Listando postagens
     //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GE
-    
 
+    var idUsuarioSessao = sessionStorage.ID_USUARIO;
 
     fetch("/postagem/listar", {
         method: "GET",
@@ -44,30 +45,32 @@
             container.innerHTML += "";
 
             dados.forEach(post => {//ele passa por cada postagem com o forEach
-                
-                    
 
-                     container.innerHTML += `
+
+
+                container.innerHTML += `
                             <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                                 <div class="imagem">${post.imagemPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                                <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                                     <p>Nome User</p>    
                                     <p>COMENTARIO...</p>    
                                 </div>
+                                
                             </div>
                         `;
-        })
+            })
 
 
 
-            });
+        });
 
 
-        
+
 
 
     function fazerPesquisa() {
@@ -115,30 +118,30 @@
                 console.log("nome não existe");
             } else {
                 console.log("nome existe");
-                sessionStorage.NOME_PERFIL_USUARIO = pesquisar;    
+                sessionStorage.NOME_PERFIL_USUARIO = pesquisar;
                 setTimeout(function () {
                     window.location = "perfilSelecionado.html";
-                }, 1000);                        
+                }, 1000);
             }
         }).catch(erro => {
             console.error("Erro na busca de usuários:", erro);
             usuarios_pesquisa.innerHTML = "<p>Erro ao buscar usuários.</p>";
         });
 
-        if(armazenarUsuario){
-                sessionStorage.NOME_PERFIL_USUARIO = armazenarUsuario;
-                setTimeout(function () {
-                    window.location = "perfilSelecionado.html";
-                }, 1000);   
+        if (armazenarUsuario) {
+            sessionStorage.NOME_PERFIL_USUARIO = armazenarUsuario;
+            setTimeout(function () {
+                window.location = "perfilSelecionado.html";
+            }, 1000);
         }
-        
-     }
+
+    }
 
 
 
 
 
-     function comentarios(botao){
+    function comentarios(botao) {
 
         const divPostagem = botao.parentElement;
 
@@ -155,46 +158,110 @@
         } else {
             box.style.display = "none";
         }
-            
 
 
 
 
 
-     };
 
-        
-        function comentariosRealizados(botao, armazenarComentario){
-
-            const divPostagem = botao.parentElement;
-            const box = divPostagem.querySelector(".boxComentarios");
+    };
 
 
+    function comentariosRealizados(botao, armazenarComentario) {
 
-            fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
-                    method: "GET",
-                }).then(res => res.json())
-                    .then(usuario => {
-                        box.innerHTML = "";
-                        usuario.forEach(post => { 
-                            box.innerHTML += `
+        const divPostagem = botao.parentElement;
+        const box = divPostagem.querySelector(".boxComentarios");
+
+
+
+        fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
+            method: "GET",
+        }).then(res => res.json())
+            .then(usuario => {
+                box.innerHTML = "";
+                usuario.forEach(post => {
+                    box.innerHTML += `
                                 <p>${post.nomePerfilUsuario}</p>
                                 <p>Data e Hora: ${post.dtInteracao}</p>
                                 <p style="border-bottom: 1px solid black; margin-bottom: 40px">${post.descricaoComentario}</p>
                             `;
 
-                        })
-
-                        
-
-                        
-            
-                        
-                        
-                        
+                })
             })
 
-            
+
+    }
+
+
+
+    //pegar valor do input de comentario.
+    function valorInput(input) {
+        return input.value;
+    }
+    function realizarComentario(botao, idPostagem) {
+        var input = botao.previousElementSibling; // pega o input que vem antes do botão é obrigatório que ele esteja antes.
+        var comentarioVar = valorInput(input);
+        var usuarioVar = idUsuarioSessao;
+        var postagemVar = idPostagem
+
+        console.log("comentario: "+ comentarioVar + " postagem: " + postagemVar + " usuario: " + usuarioVar);
+
+
+        // Verificando se há algum campo em branco
+        if (
+            comentarioVar == "" ||
+            usuarioVar == "" ||
+            postagemVar == ""
+        ) {
+            console.log("Preencha todos os campos!");
+            return false;
+        } else {
+            console.log("Todos os campos preenchidos!");
         }
+
+
+
+        // Enviando o valor da nova input
+        fetch("/comentarios/fazerComentario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                comentarioServer: comentarioVar,
+                usuarioServer: usuarioVar,
+                postagemServer: postagemVar
+                
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    // setTimeout(() => {
+                    //   window.location = "login.html";
+                    // }, "2000");
+                    console.log("comentario realizado")
+                    input.value = "";
+                    comentariosRealizados(botao, idPostagem);
+                } else {
+                    throw "Houve um erro ao tentar realizar o comentario!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+
+    }
+
+
+
+
+
+
+
 
 </script>

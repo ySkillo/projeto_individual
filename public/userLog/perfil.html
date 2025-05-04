@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <script src="../js/sessao.js"></script>
-    
+
 </head>
+
 <body onload="validarSessao()">
     <h3>eai, <span id="b_usuario">usuario</span>!</h3>
     <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
@@ -15,21 +17,22 @@
     </button>
     <div id="postagens"></div>
 </body>
+
 </html>
 <script>
-    
+
     var idUsuario = sessionStorage.ID_USUARIO;
     fetch(`/postagem/postagensUsuario?idUsuario=${idUsuario}`, {
         method: "GET"
     }).then(res => {
         if (res.status === 204) {
-                return [];
-            }
-            return res.json();
+            return [];
+        }
+        return res.json();
     })
-    .then(dados => {
+        .then(dados => {
 
-        const container = document.getElementById("postagens");
+            const container = document.getElementById("postagens");
 
             container.innerHTML += "";
 
@@ -39,9 +42,79 @@
                     <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                     <div class="imagem">${post.imagemPostagem}</div>
                     <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                    <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                    <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
+                        <p>Nome User</p>    
+                        <p>COMENTARIO...</p>    
+                    </div>
                 </div>
             `;
-        });
-    })
+            });
+        })
+
+
+
+
+
+
+
+    function comentarios(botao) {
+
+        const divPostagem = botao.parentElement;
+
+        // 2. Pega só o boxComentarios dessa postagem
+        const box = divPostagem.querySelector(".boxComentarios");
+
+        const clicado = botao.classList.toggle("clicado");
+        //toggle retorna um valor booleano 
+        //se ja tiver a class ele tira se não tiver ele adiciona
+        //adicona (true) remove(false)
+
+        if (clicado) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+
+
+
+
+
+
+    };
+
+
+    function comentariosRealizados(botao, armazenarComentario) {
+
+        const divPostagem = botao.parentElement;
+        const box = divPostagem.querySelector(".boxComentarios");
+
+
+
+        fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
+            method: "GET",
+        }).then(res => res.json())
+            .then(usuario => {
+                box.innerHTML = "";
+                usuario.forEach(post => {
+                    box.innerHTML += `
+                    <p>${post.nomePerfilUsuario}</p>
+                    <p>Data e Hora: ${post.dtInteracao}</p>
+                    <p style="border-bottom: 1px solid black; margin-bottom: 40px">${post.descricaoComentario}</p>
+                `;
+
+                })
+
+
+
+
+
+
+
+
+            })
+
+
+    }
 
 </script>

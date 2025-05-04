@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 
     <div id="postagens"></div>
-    
+
 </body>
+
 </html>
 
 
@@ -20,12 +23,12 @@
         method: "GET"
     }).then(res => {
         if (res.status === 204) {
-                return [];
-            }
-            return res.json();
+            return [];
+        }
+        return res.json();
     })
-    .then(dados => {
-        const container = document.getElementById("postagens");
+        .then(dados => {
+            const container = document.getElementById("postagens");
 
             container.innerHTML += "";
 
@@ -43,71 +46,71 @@
                                 </div>
                 </div>
             `;
-        });
-    })
+            });
+        })
 
 
 
 
 
-    function comentarios(botao){
+    function comentarios(botao) {
 
-const divPostagem = botao.parentElement;
+        const divPostagem = botao.parentElement;
 
-// 2. Pega só o boxComentarios dessa postagem
-const box = divPostagem.querySelector(".boxComentarios");
+        // 2. Pega só o boxComentarios dessa postagem
+        const box = divPostagem.querySelector(".boxComentarios");
 
-const clicado = botao.classList.toggle("clicado");
-//toggle retorna um valor booleano 
-//se ja tiver a class ele tira se não tiver ele adiciona
-//adicona (true) remove(false)
+        const clicado = botao.classList.toggle("clicado");
+        //toggle retorna um valor booleano 
+        //se ja tiver a class ele tira se não tiver ele adiciona
+        //adicona (true) remove(false)
 
-if (clicado) {
-    box.style.display = "block";
-} else {
-    box.style.display = "none";
-}
-    
-
+        if (clicado) {
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
 
 
 
 
-};
 
 
-    function comentariosRealizados(botao, armazenarComentario){
-
-const divPostagem = botao.parentElement;
-const box = divPostagem.querySelector(".boxComentarios");
+    };
 
 
+    function comentariosRealizados(botao, armazenarComentario) {
 
-fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
-        method: "GET",
-    }).then(res => res.json())
-        .then(usuario => {
-            box.innerHTML = "";
-            usuario.forEach(post => { 
-                box.innerHTML += `
+        const divPostagem = botao.parentElement;
+        const box = divPostagem.querySelector(".boxComentarios");
+
+
+
+        fetch(`/comentarios/comentarioRealizado?idPostagem=${armazenarComentario}`, {
+            method: "GET",
+        }).then(res => res.json())
+            .then(usuario => {
+                box.innerHTML = "";
+                usuario.forEach(post => {
+                    box.innerHTML += `
                     <p>${post.nomePerfilUsuario}</p>
                     <p>Data e Hora: ${post.dtInteracao}</p>
                     <p style="border-bottom: 1px solid black; margin-bottom: 40px">${post.descricaoComentario}</p>
                 `;
 
+                })
+
+
+
+
+
+
+
+
             })
 
-            
 
-            
-
-            
-            
-            
-})
-
-
-}
+    }
 
 
 </script>
