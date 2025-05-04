@@ -6,7 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    
 
     <div id="postagens"></div>
     
@@ -26,12 +25,19 @@
             return res.json();
     })
     .then(dados => {
-        dados.forEach(post => {
-            postagens.innerHTML += `
-                    <h3>${post.tituloPostagem}</h3>
-                    <h3>${post.imagemPostagem}</h3>
-                    <h3>${post.descricaoPostagem}</h3>
-                `
+        const container = document.getElementById("postagens");
+
+            container.innerHTML += "";
+
+            dados.forEach(post => {//ele passa por cada postagem com o forEach
+                container.innerHTML += `
+                <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                    <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                    <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
+                    <div class="imagem">${post.imagemPostagem}</div>
+                    <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                </div>
+            `;
         });
     })
 

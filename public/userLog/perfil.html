@@ -10,12 +10,12 @@
 <body onload="validarSessao()">
     <h3>eai, <span id="b_usuario">usuario</span>!</h3>
     <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
-
+    <button class="btn-logout" onclick="limparSessao()">
+        <h3>Sair</h3>
+    </button>
     <div id="postagens"></div>
 </body>
 </html>
-
-
 <script>
     
     var idUsuario = sessionStorage.ID_USUARIO;
@@ -28,12 +28,19 @@
             return res.json();
     })
     .then(dados => {
-        dados.forEach(post => {
-            postagens.innerHTML += `
-                    <h3>${post.tituloPostagem}</h3>
-                    <h3>${post.imagemPostagem}</h3>
-                    <h3>${post.descricaoPostagem}</h3>
-                `
+
+        const container = document.getElementById("postagens");
+
+            container.innerHTML += "";
+
+            dados.forEach(post => {//ele passa por cada postagem com o forEach
+                container.innerHTML += `
+                <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                    <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
+                    <div class="imagem">${post.imagemPostagem}</div>
+                    <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                </div>
+            `;
         });
     })
 
