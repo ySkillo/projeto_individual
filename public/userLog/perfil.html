@@ -10,18 +10,48 @@
 </head>
 
 <body onload="validarSessao()">
+    <a href="home.html">Inicial</a>
     <h3>eai, <span id="b_usuario">usuario</span>!</h3>
     <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
-    <button class="btn-logout" onclick="limparSessao()">
-        <h3>Sair</h3>
-    </button>
+    <button class="btn-logout" onclick="limparSessao()">Sair da conta</button><br><br><br><br>
+
+    titulo
+    <input type="text" id="inputTitulo"><br>
+    descricao
+    <input type="text" id="inputDescricao"><br>
+    imagem
+    <div id="div_img"></div>
+    <input type="file" id="fileInput" onchange="mostrarImagem()" accept="image/*" /><br><br>
+    <button onclick="imagemSelecionada()">realizar postagem</button><br><br><br><br><br><br>
+    <div id="mensagem_carregamento"></div>
     <div id="postagens"></div>
+    
+
+
+
 </body>
 
 </html>
 <script>
 
+
+    var idUsuarioSessao = sessionStorage.ID_USUARIO;
+
+
+    function mostrarImagem() {
+        const fileInput = document.getElementById('fileInput');
+        const div_img = document.getElementById('div_img');
+
+        if (fileInput.files && fileInput.files[0]) {
+            const imagemURL = URL.createObjectURL(fileInput.files[0]);
+            div_img.innerHTML = `<img src="${imagemURL}" style="width: 200px; height: auto;">`;
+        } else {
+            div_img.innerHTML = "Nenhuma imagem selecionada.";
+        }
+    }
+
     var idUsuario = sessionStorage.ID_USUARIO;
+
     fetch(`/postagem/postagensUsuario?idUsuario=${idUsuario}`, {
         method: "GET"
     }).then(res => {
@@ -38,11 +68,13 @@
 
             dados.forEach(post => {//ele passa por cada postagem com o forEach
                 container.innerHTML += `
+                <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
                 <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                    <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" ></div>
                     <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
-                    <div class="imagem">${post.imagemPostagem}</div>
                     <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
                     <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                    <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                     <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                         <p>Nome User</p>    
                         <p>COMENTARIO...</p>    
@@ -50,7 +82,11 @@
                 </div>
             `;
             });
-        })
+        }).catch(
+                function (erro) {
+                    console.log("Nenhuma postagem")
+                }
+            );
 
 
 
@@ -75,12 +111,6 @@
         } else {
             box.style.display = "none";
         }
-
-
-
-
-
-
     };
 
 
@@ -104,17 +134,274 @@
                 `;
 
                 })
-
-
-
-
-
-
-
-
-            })
+            }).catch(
+                function (erro) {
+                    box.innerHTML = "";
+                    box.innerHTML += `
+                        <p>Nenhum comentario</p>
+                    `;
+                }
+            );
 
 
     }
+
+
+
+
+    function atualizarPagina(){
+        fetch(`/postagem/postagensUsuario?idUsuario=${idUsuario}`, {
+        method: "GET"
+    }).then(res => {
+        if (res.status === 204) {
+            return [];
+        }
+        return res.json();
+    })
+        .then(dados => {
+
+            const container = document.getElementById("postagens");
+
+            container.innerHTML = "";
+
+            dados.forEach(post => {//ele passa por cada postagem com o forEach
+                container.innerHTML += `
+                <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
+                <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                    <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
+                    <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
+                    <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                    <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                    <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
+                        <p>Nome User</p>    
+                        <p>COMENTARIO...</p>    
+                    </div>
+                </div>
+            `;
+
+
+
+
+
+            });
+        }).catch(
+                function (erro) {
+                    console.log("Nenhuma postagem")
+                }
+            );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Esta função será chamada quando o botão "imagem selecionada" for clicado
+    function imagemSelecionada() {
+
+
+
+        var tituloVar = inputTitulo.value
+        var descricaoVar = inputDescricao.value
+        var usuarioVar = sessionStorage.ID_USUARIO
+
+        if (tituloVar == "" ||
+            descricaoVar == ""
+        ) {
+            console.log("Preencha todos os campos!");
+            return false;
+        } else {
+            console.log("todos os campos preenchidos")
+        }
+
+
+        var fileInput = document.getElementById('fileInput');
+        var div_img = document.getElementById('div_img');
+
+        if (fileInput.files && fileInput.files[0]) {
+            var file = fileInput.files[0];
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var base64Image = e.target.result;
+
+                // Exibe a imagem
+                div_img.innerHTML = `<img src="${base64Image}" style="width: 100px; height: 100px;">`;
+
+                // Aqui você já pode enviar para o servidor
+                console.log("Base64 da imagem:", base64Image);
+                // Exemplo de envio com fetch:
+
+                console.log("Base64 da imagem:", tituloVar + " descricao: " + descricaoVar + " usuarioId: " + usuarioVar);
+
+                fetch("/postagem/realizarPostagem", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        // crie um atributo que recebe o valor recuperado aqui
+                        // Agora vá para o arquivo routes/usuario.js
+                        tituloServer: tituloVar,
+                        descricaoServer: descricaoVar,
+                        usuarioServer: usuarioVar,
+                        imagemServer: base64Image
+
+                    }),
+                })
+                    .then(function (resposta) {
+                        console.log("resposta: ", resposta);
+
+                        if (resposta.ok) {
+                            console.log("postagem realizada")
+                            tituloVar.value = "";
+                            descricaoVar.value = "";
+                            setTimeout(() => {
+                                atualizarPagina();
+                            }, 500);
+                            
+                        } else {
+                            throw "Houve um erro ao tentar realizar o postagem!";
+                        }
+                    })
+                    .catch(function (resposta) {
+                        console.log(`#ERRO: ${resposta}`);
+                    });
+
+            };
+            reader.readAsDataURL(file); // Lê como base64 (Data URL)
+        } else {
+            div_img.innerHTML = "Nenhuma imagem selecionada.";
+        }
+    }
+
+
+
+    function valorInput(input) {
+        return input.value;
+    }
+    function realizarComentario(botao, idPostagem) {
+        var input = botao.previousElementSibling; // pega o input que vem antes do botão é obrigatório que ele esteja antes.
+        var comentarioVar = valorInput(input);
+        var usuarioVar = idUsuarioSessao;
+        var postagemVar = idPostagem
+
+        console.log("comentario: "+ comentarioVar + " postagem: " + postagemVar + " usuario: " + usuarioVar);
+
+
+        // Verificando se há algum campo em branco
+        if (
+            comentarioVar == "" ||
+            usuarioVar == "" ||
+            postagemVar == ""
+        ) {
+            console.log("Preencha todos os campos!");
+            return false;
+        } else {
+            console.log("Todos os campos preenchidos!");
+        }
+
+
+
+        // Enviando o valor da nova input
+        fetch("/comentarios/fazerComentario", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+                comentarioServer: comentarioVar,
+                usuarioServer: usuarioVar,
+                postagemServer: postagemVar
+                
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    // setTimeout(() => {
+                    //   window.location = "login.html";
+                    // }, "2000");
+                    console.log("comentario realizado")
+                    input.value = "";
+                    comentariosRealizados(botao, idPostagem);
+                } else {
+                    throw "Houve um erro ao tentar realizar o comentario!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+
+    }
+
+
+
+
+
+
+
+
+
+    function apagarComentariosDaPostagem(idPostagem) {
+        console.log("Apagando comentários da postagem:", idPostagem);
+
+        fetch(`/comentarios/apagarComentariosDaPostagem?idPostagem=${idPostagem}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Comentários apagados com sucesso.");
+                // Agora você pode chamar a função que deleta a postagem
+                deletarPostagem(idPostagem);
+            } else {
+                console.error("Erro ao apagar os comentários.");
+            }
+        })
+        .catch((erro) => {
+            console.log("Não foi possível apagar os comentários:", erro);
+        });
+    }
+
+
+
+    function deletarPostagem(idPostagem){
+        console.log("Apagando postagem:", idPostagem);
+
+        fetch(`/postagem/apagarPostagem?idPostagem=${idPostagem}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if (res.ok) {
+                console.log("Postagem apagada com sucesso.");   
+                mensagem_carregamento.innerHTML = "apagando postagem... aguarde..."
+                setTimeout(() => {
+                    mensagem_carregamento.innerHTML = ""
+                    atualizarPagina();
+                }, 1000);
+            } else {
+                console.error("Erro ao apagar os postagem.");
+            }
+        })
+        .catch((erro) => {
+            console.log("Não foi possível apagar a postagem:", erro);
+        });
+    }
+
+
+
+
+    
 
 </script>

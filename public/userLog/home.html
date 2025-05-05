@@ -9,7 +9,7 @@
 </head>
 
 <body onload="validarSessao()">
-    <a href="../dashboard/cards.html">dashboard</a>
+    <a href="../dashboard/cards.html">dashboard</a> ///
     <a href="perfil.html">perfil</a>
     <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar">
     <div id="usuarios_pesquisa" style="color: #f00;"></div>
@@ -29,6 +29,16 @@
 
 
 <script>
+    //recarregando a pagina
+    window.onload = function () {
+    if (!sessionStorage.getItem("paginaRecarregada")) {
+        sessionStorage.setItem("paginaRecarregada", "true");
+        location.reload();
+    } else {
+        sessionStorage.removeItem("paginaRecarregada");
+    }
+};
+
 
     //Listando postagens
     //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GE
@@ -46,13 +56,14 @@
 
             dados.forEach(post => {//ele passa por cada postagem com o forEach
 
-
-
-                container.innerHTML += `
+                if (idUsuarioSessao == post.fkUsuario) {
+                    container.innerHTML += `
+                            
                             <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                                <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                                <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
-                                <div class="imagem">${post.imagemPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
@@ -63,11 +74,38 @@
                                 
                             </div>
                         `;
+
+                } else {
+                    container.innerHTML += `
+                            <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+                                <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                                <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
+                                <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
+                                <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                                <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
+                                <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
+                                    <p>Nome User</p>    
+                                    <p>COMENTARIO...</p>    
+                                </div>
+                                
+                            </div>
+                        `;
+
+                }
+
             })
 
 
 
-        });
+        }).catch(
+            function (erro) {
+                postagens.innerHTML = "";
+                postagens.innerHTML += `
+                        <p>Nenhuma postagem</p>
+                    `;
+            }
+        );
 
 
 
@@ -160,10 +198,6 @@
         }
 
 
-
-
-
-
     };
 
 
@@ -187,7 +221,14 @@
                             `;
 
                 })
-            })
+            }).catch(
+                function (erro) {
+                    box.innerHTML = "";
+                    box.innerHTML += `
+                        <p>Nenhum comentario</p>
+                    `;
+                }
+            );
 
 
     }
@@ -204,7 +245,7 @@
         var usuarioVar = idUsuarioSessao;
         var postagemVar = idPostagem
 
-        console.log("comentario: "+ comentarioVar + " postagem: " + postagemVar + " usuario: " + usuarioVar);
+        console.log("comentario: " + comentarioVar + " postagem: " + postagemVar + " usuario: " + usuarioVar);
 
 
         // Verificando se há algum campo em branco
@@ -233,7 +274,7 @@
                 comentarioServer: comentarioVar,
                 usuarioServer: usuarioVar,
                 postagemServer: postagemVar
-                
+
             }),
         })
             .then(function (resposta) {
@@ -256,6 +297,71 @@
 
 
     }
+
+
+
+
+    function apagarComentariosDaPostagem(idPostagem) {
+        console.log("Apagando comentários da postagem:", idPostagem);
+
+        fetch(`/comentarios/apagarComentariosDaPostagem?idPostagem=${idPostagem}`, {
+            method: "DELETE"
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log("Comentários apagados com sucesso.");
+                    // Agora você pode chamar a função que deleta a postagem
+                    deletarPostagem(idPostagem);
+                } else {
+                    console.error("Erro ao apagar os comentários.");
+                }
+            })
+            .catch((erro) => {
+                console.log("Não foi possível apagar os comentários:", erro);
+            });
+    }
+
+
+
+    function deletarPostagem(idPostagem) {
+        console.log("Apagando postagem:", idPostagem);
+
+        fetch(`/postagem/apagarPostagem?idPostagem=${idPostagem}`, {
+            method: "DELETE"
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log("Postagem apagada com sucesso.");
+                    location.reload();
+                } else {
+                    console.error("Erro ao apagar os postagem.");
+                }
+            })
+            .catch((erro) => {
+                console.log("Não foi possível apagar a postagem:", erro);
+            });
+    }
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
 
 
 

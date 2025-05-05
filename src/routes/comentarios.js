@@ -10,4 +10,9 @@ router.post("/fazerComentario", function (req, res) {
     comentarioController.fazerComentario(req, res); // nome da função correto
 });
 
+router.delete("/apagarComentariosDaPostagem", function (req, res) {
+    comentarioController.apagarComentariosDaPostagem(req, res); // nome da função correto
+});
+
+
 module.exports = router;

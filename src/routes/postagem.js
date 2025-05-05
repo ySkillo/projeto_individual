@@ -14,4 +14,13 @@ router.get("/usuarioSelecionado", function (req, res) {
     postagemControler.usuarioSelecionado(req, res);
 });
 
+router.post("/realizarPostagem", function (req, res) {
+    postagemControler.realizarPostagem(req, res);
+});
+
+
+router.delete("/apagarPostagem", function (req, res) {
+    postagemControler.apagarPostagem(req, res); // nome da função correto
+});
+
 module.exports = router;
