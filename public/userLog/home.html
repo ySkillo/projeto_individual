@@ -8,13 +8,14 @@
     <script src="../js/sessao.js"></script>
 </head>
 
+
 <body onload="validarSessao()">
     <a href="../dashboard/cards.html">dashboard</a> ///
     <a href="perfil.html">perfil</a>
-    <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar">
-    <div id="usuarios_pesquisa" style="color: #f00;"></div>
-
     <h3>eai, <span id="b_usuario">usuario</span>!</h3>
+
+    <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar"><br>
+    <div id="usuarios_pesquisa" style="color: #f00;"></div>
     <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
     <button class="btn-logout" onclick="limparSessao()">
         <h3>Sair</h3>
@@ -24,21 +25,10 @@
     </div>
 </body>
 
-
 </html>
 
 
 <script>
-    //recarregando a pagina
-    window.onload = function () {
-    if (!sessionStorage.getItem("paginaRecarregada")) {
-        sessionStorage.setItem("paginaRecarregada", "true");
-        location.reload();
-    } else {
-        sessionStorage.removeItem("paginaRecarregada");
-    }
-};
-
 
     //Listando postagens
     //Isso faz uma requisição (pedido) para o servidor na URL /postagem/listar, usando o método GE
@@ -50,31 +40,34 @@
     }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
         .then(dados => {
 
-            const container = document.getElementById("postagens");
-
+            var container = document.getElementById("postagens");
             container.innerHTML += "";
 
             dados.forEach(post => {//ele passa por cada postagem com o forEach
 
                 if (idUsuarioSessao == post.fkUsuario) {
+
                     container.innerHTML += `
-                            
                             <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
                                 <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
                                 <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}">curtir</button>
+                                <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                                     <p>Nome User</p>    
                                     <p>COMENTARIO...</p>    
-                                </div>
-                                
+                                </div>  
                             </div>
+                        
                         `;
 
+                    quantidadeDeCurtidas(post.idPostagem);
+                    aplicarEstiloCurtidasFeitas();
                 } else {
                     container.innerHTML += `
                             <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
@@ -82,6 +75,8 @@
                                 <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
+                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}">curtir</button>
+                                <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
@@ -91,7 +86,8 @@
                                 
                             </div>
                         `;
-
+                    quantidadeDeCurtidas(post.idPostagem);
+                    aplicarEstiloCurtidasFeitas();
                 }
 
             })
@@ -106,6 +102,58 @@
                     `;
             }
         );
+
+
+
+    fetch(`/curtida/curtidasFeitas?idUsuario=${idUsuarioSessao}`, {
+        method: "GET"
+    }).then(res => {
+        if (res.status === 204) {
+            return [];
+        }
+        return res.json();
+    })
+        .then(retorno => {
+
+            retorno.forEach(resposta => {//ele passa por cada postagem com o forEach
+
+                console.log("Curtida feita: " + resposta.curtida)
+
+            });
+        }).catch(
+            function (erro) {
+                console.log("erro ao buscar curtidas")
+            }
+        );
+
+
+
+
+
+
+
+
+    function aplicarEstiloCurtidasFeitas() {
+        fetch(`/curtida/curtidasFeitas?idUsuario=${idUsuarioSessao}`, {
+            method: "GET"
+        })
+            .then(res => res.status === 204 ? [] : res.json())
+            .then(dados => {
+                dados.forEach(curtida => {
+                    const botaoCurtida = document.querySelector(`[data-id-postagem='${curtida.fkPostagemSelecionada}']`);
+                    if (botaoCurtida) {
+                        botaoCurtida.classList.add("clicado");
+                        botaoCurtida.style.backgroundColor = "#f00";
+                    }
+                });
+            })
+            .catch(err => {
+                console.error("Erro ao aplicar estilo nas curtidas:", err);
+            });
+    }
+
+
+
 
 
 
@@ -181,12 +229,12 @@
 
     function comentarios(botao) {
 
-        const divPostagem = botao.parentElement;
+        var divPostagem = botao.parentElement;
 
         // 2. Pega só o boxComentarios dessa postagem
-        const box = divPostagem.querySelector(".boxComentarios");
+        var box = divPostagem.querySelector(".boxComentarios");
 
-        const clicado = botao.classList.toggle("clicado");
+        var clicado = botao.classList.toggle("clicado");
         //toggle retorna um valor booleano 
         //se ja tiver a class ele tira se não tiver ele adiciona
         //adicona (true) remove(false)
@@ -203,8 +251,8 @@
 
     function comentariosRealizados(botao, armazenarComentario) {
 
-        const divPostagem = botao.parentElement;
-        const box = divPostagem.querySelector(".boxComentarios");
+        var divPostagem = botao.parentElement;
+        var box = divPostagem.querySelector(".boxComentarios");
 
 
 
@@ -343,28 +391,146 @@
     }
 
 
+    function curtidasPostagem(curtir, postagem, usuario, donoPostagem) {
+
+        var usuarioVar = usuario;
+        var postagemVar = postagem;
+        var donoPostagemVar = donoPostagem;
+        var verificacaoVar = "";
+        const clicado = curtir.classList.toggle("clicado")
+        
+        if (clicado) {
+            verificacao = "v";
+            curtir.style.backgroundColor = "#f00";
+            console.log("Usuario: " + usuarioVar + " Postagem: " + postagemVar + " curtida: " + verificacao + " dono da postagem: " + donoPostagemVar)
+
+            // Enviando o valor da nova input
+            fetch("/curtida/realizarCurtida", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    usuarioServer: usuarioVar,
+                    postagemServer: postagemVar,
+                    donoServer: donoPostagemVar,
+                    verificacaoServer: verificacao
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+                    quantidadeDeCurtidas(postagemVar)
+                    if (resposta.ok) {
+                        console.log("curtida realizada");
+                        quantidadeDeCurtidas(postagemVar)
+                        window.onload = function recarregarCurtidas() {
+                            fetch(`/curtida/curtidasFeitas?idUsuario=${idUsuarioSessao}`, {
+                                method: "GET"
+                            }).then(res => {
+                                if (res.status === 204) {
+                                    return [];
+                                }
+                                return res.json();
+                            })
+                                .then(dados => {
+
+                                    dados.forEach(post => {//ele passa por cada postagem com o forEach
+                                        const botao = document.querySelector(`[data-id-postagem='${post.fkPostagemSelecionada}']`);
+
+                                        if (botao) {
+                                            botao.classList.add("clicado");
+                                            botao.style.backgroundColor = "#f00"; // ou use btnCurtida(botao);
+                                        } else {
+                                            botao.style.backgroundColor = "#fff";
+                                        }
+                                        
+                                    });
+                                }).catch(
+                                    function (erro) {
+                                        console.log("erro ao buscar curtidas")
+                                    }
+                                );
+                        }
+
+
+                    } else {
+                        fetch(`/curtida/removendoCurtida?idUsuario=${usuarioVar}&idPostagem=${postagemVar}`, {
+                            method: "DELETE"
+                        })
+                            .then(res => {
+                                if (res.ok) {                          
+                                    console.log("Comentários apagados com sucesso.");
+                                    
+                                } else {
+                                    console.error("Erro ao apagar os comentários.");
+                                }
+                            })
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+
+
+
+        } else {
+            curtir.style.backgroundColor = "#fff";
+            verificacao = "f";
+            console.log("Curtida removida / Usuario: " + usuarioVar + " Postagem: " + postagemVar + " curtida: " + verificacao + " dono da postagem: " + donoPostagemVar)
+
+            fetch(`/curtida/removendoCurtida?idUsuario=${usuarioVar}&idPostagem=${postagemVar}`, {
+                method: "DELETE"
+            })
+                .then(res => {
+                    if (res.ok) {
+                        quantidadeDeCurtidas(postagemVar)
+                        console.log("Comentários apagados com sucesso.");
+                    } else {
+                        console.error("Erro ao apagar os comentários.");
+                    }
+                })
+
+        }
+
+    }
 
 
 
 
 
+    function quantidadeDeCurtidas(idPostagem) {
+        fetch(`/curtida/quantidadeCurtidas?idPostagem=${idPostagem}`, {
+            method: "GET"
+        }).then(res => {
+            if (res.status === 204) {
+                return [];
+            }
+            return res.json();
+        })
+            .then(retorno => {
+
+                retorno.forEach(resposta => {//ele passa por cada postagem com o forEach
+
+                    console.log("IdPostagem das curtidas: " + resposta['COUNT(fkPostagemSelecionada)'], idPostagem)
+                    var quantidadeCurtidas = resposta['COUNT(fkPostagemSelecionada)'];
 
 
+                    var spanCurtidas = document.getElementById(`qtdCurtidas-${idPostagem}`);
+                    if (spanCurtidas) {
+                        spanCurtidas.textContent = quantidadeCurtidas;
+                    }
+                    
+                });
+            }).catch(
+                function (erro) {
+                    console.log("erro ao buscar curtidas")
+                }
+            );
 
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 

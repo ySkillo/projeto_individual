@@ -25,10 +25,31 @@ CREATE TABLE tbPostagem(
 		references tbUsuario(idUsuario)
 );
 
+
+CREATE TABLE tbCurtidas(
+	fkUsuarioSelecionado INT,
+    fkUsuarioPostagem INT,
+    fkPostagemSelecionada INT,
+	dtComentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    constraint fkUsuarioSelecionado foreign key (fkUsuarioSelecionado)
+		references tbUsuario(idUsuario),
+	constraint fkUsuarioPostagem foreign key (fkUsuarioPostagem)
+		references tbPostagem(fkUsuario),
+	constraint fkPostagem foreign key (fkPostagemSelecionada)
+		references tbPostagem(idPostagem)
+);
+
+SELECT COUNT(fkPostagemSelecionada) FROM tbCurtidas
+		WHERE fkPostagemSelecionada = 5;
+
+    -- SELECT COUNT(*) FROM produtos;
+	-- fazer contagem
+
+
 CREATE TABLE tbComentarios(
 	idComentario INT PRIMARY KEY AUTO_INCREMENT,
 	descricaoComentario VARCHAR(255),
-    dtInteracao  DATETIME DEFAULT CURRENT_TIMESTAMP,
+    dtInteracao  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	fkPostagem INT,
     fkUsuario INT,
     constraint fkPostagens foreign key (fkPostagem) 
@@ -40,55 +61,49 @@ CREATE TABLE tbComentarios(
 
 select * from tbUsuario;
 select * from tbPostagem;
+select * from tbCurtidas;
 select * from tbComentarios;
 
 
 
-INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario, senhaUsuario, fotoPerfil) VALUES
-('João Silva', 'joaosilva', 'joao@gmail.com', '123.456.789-00', 'senha123', 'foto1.jpg'),
-('Maria Souza', 'mariasz', 'maria@gmail.com', '987.654.321-00', 'senha456', 'foto2.jpg'),
-('Lucas Lima', 'lucaslim', 'lucas@gmail.com', '456.789.123-00', 'senha789', 'foto3.jpg'),
-('Ana Costa', 'anac', 'ana@gmail.com', '321.654.987-00', '123senha', 'foto4.jpg'),
-('Carlos Mendes', 'carlitos', 'carlos@gmail.com', '741.852.963-00', 'abc123', 'foto5.jpg'),
-('Bruna Rocha', 'bruninha', 'bruna@gmail.com', '159.753.486-00', 'bruna123', 'foto6.jpg'),
-('Ricardo Alves', 'ricardao', 'ricardo@gmail.com', '258.147.369-00', 'senha789', 'foto7.jpg'),
-('Juliana Dias', 'julydias', 'juliana@gmail.com', '369.258.147-00', 'juliana456', 'foto8.jpg'),
-('Paulo Henrique', 'phenrique', 'paulo@gmail.com', '111.222.333-44', 'ph123', 'foto9.jpg'),
-('Camila Martins', 'camimartins', 'camila@gmail.com', '555.666.777-88', 'cami321', 'foto10.jpg');
 
+INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario, senhaUsuario, fotoPerfil) VALUES
+('Ana Souza', 'AnaTech', 'ana@gmail.com', '123.456.789-00', 'senha123', 'foto_ana.png'),
+('Carlos Lima', 'CLima', 'carlos@gmail.com', '234.567.890-11', 'senha456', 'foto_carlos.png'),
+('Beatriz Rocha', 'BiaRocha', 'bia@gmail.com', '345.678.901-22', 'senha789', 'foto_bia.png'),
+('Daniel Alves', 'DaniDev', 'daniel@gmail.com', '456.789.012-33', 'senha321', 'foto_daniel.png'),
+('Fernanda Costa', 'FeCosta', 'fernanda@gmail.com', '567.890.123-44', 'senha654', 'foto_fernanda.png');
 
 
 INSERT INTO tbPostagem (tituloPostagem, descricaoPostagem, imagemPostagem, fkUsuario) VALUES
-('Viagem ao Rio', 'Relato da minha viagem ao Rio de Janeiro!', 'img1.jpg', 1),
-('Receita de Bolo', 'Confira essa receita deliciosa de bolo de cenoura', 'img2.jpg', 2),
-('Treino em Casa', 'Dicas para treinar em casa.', 'img3.jpg', 3),
-('Review de Série', 'Minha opinião sobre uma nova série da Netflix.', 'img4.jpg', 4),
-('Dica de Estudo', 'Métodos de estudo que funcionam comigo.', 'img5.jpg', 5),
-('Tecnologia Nova', 'Novo lançamento de smartphone comentado.', 'img6.jpg', 6),
-('Projeto Social', 'Relato do projeto que participei.', 'img7.jpg', 7),
-('Look do Dia', 'Minha roupa preferida da semana.', 'img8.jpg', 8),
-('Setup Gamer', 'Meu setup de games atualizado.', 'img9.jpg', 9),
-('Passeio em Família', 'Domingo no parque com a família.', 'img10.jpg', 10);
+('Viagem ao Rio', 'Compartilhando minha viagem ao Rio de Janeiro', 'imagem1.png', 1),
+('Nova receita', 'Aprenda a fazer um bolo de cenoura delicioso', 'imagem2.png', 2),
+('Dica de leitura', 'Recomendo o livro "A Sutil Arte de Ligar o F*da-se"', 'imagem3.png', 3),
+('Setup Gamer', 'Mostrando meu novo setup', 'imagem4.png', 4),
+('Paisagem Incrível', 'Foto que tirei na montanha', 'imagem5.png', 5);
+
+
+INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada) VALUES
+(1, 2, 2),
+(2, 3, 3),
+(3, 1, 1),
+(3, 1, 1),
+(3, 1, 1),
+(3, 1, 1),
+(4, 5, 5),
+(5, 4, 4);
+
 
 
 INSERT INTO tbComentarios (descricaoComentario, fkPostagem, fkUsuario) VALUES
 ('Que lugar lindo!', 1, 2),
-('Amo essa receita!', 2, 4),
-('Faço esse treino também!', 3, 5),
-('Concordo com você sobre a série.', 4, 1),
-('Vou testar essa dica hoje.', 5, 3),
-('Gostei do celular novo!', 6, 7),
-('Esse projeto é inspirador!', 7, 6),
-('Adorei o look!', 8, 9),
-('Seu setup está top!', 9, 8),
-('Passeios assim são tudo!', 10, 10);
+('Vou testar essa receita!', 2, 1),
+('Já li esse livro, muito bom.', 3, 4),
+('Top demais seu setup!', 4, 5),
+('Essa paisagem é surreal!', 5, 3);
 
-SELECT c.idComentario, c.descricaoComentario, c.dtInteracao,
- p.idPostagem, u.nomePerfilUsuario, u.idUsuario FROM tbComentarios as c 
- JOIN tbPostagem as p
-on c.fkPostagem = p.idPostagem
-JOIN tbUsuario as u
- on c.fkUsuario = u.idUsuario
- WHERE c.fkPostagem = 10 and c.fkUsuario = 10;
+
+
+
 
 

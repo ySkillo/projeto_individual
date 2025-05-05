@@ -19,6 +19,8 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var postagemRouter = require("./src/routes/postagem");
 var comentarioRouter = require("./src/routes/comentarios");
+var curtidaRouter = require("./src/routes/curtida");
+
 
 
 
@@ -37,6 +39,8 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/postagem", postagemRouter);
 app.use("/comentarios", comentarioRouter);
+app.use("/curtida", curtidaRouter);
+
 
 
 
