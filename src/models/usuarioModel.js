@@ -40,6 +40,13 @@ function cadastrar(nome, email, senha, cpf) {
 
 
 
+
+
+
+
+
+
+
 module.exports = {
     autenticar,
     pesquisarUsuario,

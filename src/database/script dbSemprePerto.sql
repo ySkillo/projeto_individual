@@ -5,6 +5,8 @@ drop database dbSemprePerto;
 
 use dbSemprePerto;
 
+
+
 CREATE TABLE tbUsuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 	nomeUsuario VARCHAR(45) NOT NULL,	
@@ -13,7 +15,15 @@ CREATE TABLE tbUsuario(
     cpfUsuario CHAR (14) NOT NULL UNIQUE,
     senhaUsuario VARCHAR(30),
 	fotoPerfil LONGTEXT
+);	
+
+CREATE TABLE tbSeguidor(
+	idSeguidor INT,
+    fkUsuarioSeguido INT,
+	 constraint primary key (fkUsuarioSeguido, idSeguidor),
+        foreign key (fkUsuarioSeguido) references tbUsuario(idUsuario)
 );
+
 
 CREATE TABLE tbPostagem(
 	idPostagem INT PRIMARY KEY AUTO_INCREMENT,
@@ -30,7 +40,10 @@ CREATE TABLE tbCurtidas(
 	fkUsuarioSelecionado INT,
     fkUsuarioPostagem INT,
     fkPostagemSelecionada INT,
+    constraint primary key(fkUsuarioSelecionado, fkPostagemSelecionada, fkUsuarioPostagem),
 	dtComentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    curtida char(1)
+		constraint chkCurtida check (curtida IN('v','f')),
     constraint fkUsuarioSelecionado foreign key (fkUsuarioSelecionado)
 		references tbUsuario(idUsuario),
 	constraint fkUsuarioPostagem foreign key (fkUsuarioPostagem)
@@ -40,7 +53,7 @@ CREATE TABLE tbCurtidas(
 );
 
 SELECT COUNT(fkPostagemSelecionada) FROM tbCurtidas
-		WHERE fkPostagemSelecionada = 5;
+		WHERE fkPostagemSelecionada = ?;
 
     -- SELECT COUNT(*) FROM produtos;
 	-- fazer contagem
@@ -58,51 +71,53 @@ CREATE TABLE tbComentarios(
 		references tbUsuario(idUsuario)
 );
 
+INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario, senhaUsuario, fotoPerfil) VALUES
+('João Silva', 'joaos', 'joao@email.com', '123.456.789-00', 'senha123', 'foto1.jpg'),
+('Maria Oliveira', 'mariao', 'maria@email.com', '987.654.321-00', 'senha456', 'foto2.jpg'),
+('Carlos Souza', 'carloss', 'carlos@email.com', '321.654.987-00', 'senha789', 'foto3.jpg'),
+('Ana Costa', 'anac', 'ana@email.com', '654.987.321-00', 'senhaabc', 'foto4.jpg'),
+('Pedro Lima', 'pedrol', 'pedro@email.com', '789.123.456-00', 'senhadef', 'foto5.jpg');
+
+INSERT INTO tbSeguidor (idSeguidor, fkUsuarioSeguido) VALUES
+(2, 1),
+(3, 1),
+(1, 2),
+(4, 3),
+(5, 2);
+
+INSERT INTO tbPostagem (tituloPostagem, descricaoPostagem, imagemPostagem, fkUsuario) VALUES
+('Viagem ao Rio', 'Minha viagem ao Rio de Janeiro!', 'img1.jpg', 1),
+('Comida caseira', 'Receita especial da vovó!', 'img2.jpg', 2),
+('Meu setup', 'Mostrando meu setup gamer.', 'img3.jpg', 3),
+('Look do dia', 'Meu look para hoje.', 'img4.jpg', 4),
+('Pôr do Sol', 'O pôr do sol mais bonito que já vi.', 'img5.jpg', 5);
+
+INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada, curtida) VALUES
+(2, 1, 1, 'v'),
+(3, 1, 1, 'v'),
+(1, 2, 2, 'v'),
+(4, 3, 3, 'v'),
+(5, 4, 4, 'v');
+
+INSERT INTO tbComentarios (descricaoComentario, fkPostagem, fkUsuario) VALUES
+('Muito legal!', 1, 2),
+('Adorei a comida!', 2, 1),
+('Top demais!', 3, 4),
+('Arrasou no look!', 4, 3),
+('Foto linda!', 5, 1);
+
+
 
 select * from tbUsuario;
+select * from tbSeguidor;
 select * from tbPostagem;
 select * from tbCurtidas;
 select * from tbComentarios;
 
+select count(fkUsuarioSeguido)from tbSeguidor
+	where fkUsuarioSeguido = 2;
 
-
-
-INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario, senhaUsuario, fotoPerfil) VALUES
-('Ana Souza', 'AnaTech', 'ana@gmail.com', '123.456.789-00', 'senha123', 'foto_ana.png'),
-('Carlos Lima', 'CLima', 'carlos@gmail.com', '234.567.890-11', 'senha456', 'foto_carlos.png'),
-('Beatriz Rocha', 'BiaRocha', 'bia@gmail.com', '345.678.901-22', 'senha789', 'foto_bia.png'),
-('Daniel Alves', 'DaniDev', 'daniel@gmail.com', '456.789.012-33', 'senha321', 'foto_daniel.png'),
-('Fernanda Costa', 'FeCosta', 'fernanda@gmail.com', '567.890.123-44', 'senha654', 'foto_fernanda.png');
-
-
-INSERT INTO tbPostagem (tituloPostagem, descricaoPostagem, imagemPostagem, fkUsuario) VALUES
-('Viagem ao Rio', 'Compartilhando minha viagem ao Rio de Janeiro', 'imagem1.png', 1),
-('Nova receita', 'Aprenda a fazer um bolo de cenoura delicioso', 'imagem2.png', 2),
-('Dica de leitura', 'Recomendo o livro "A Sutil Arte de Ligar o F*da-se"', 'imagem3.png', 3),
-('Setup Gamer', 'Mostrando meu novo setup', 'imagem4.png', 4),
-('Paisagem Incrível', 'Foto que tirei na montanha', 'imagem5.png', 5);
-
-
-INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada) VALUES
-(1, 2, 2),
-(2, 3, 3),
-(3, 1, 1),
-(3, 1, 1),
-(3, 1, 1),
-(3, 1, 1),
-(4, 5, 5),
-(5, 4, 4);
-
-
-
-INSERT INTO tbComentarios (descricaoComentario, fkPostagem, fkUsuario) VALUES
-('Que lugar lindo!', 1, 2),
-('Vou testar essa receita!', 2, 1),
-('Já li esse livro, muito bom.', 3, 4),
-('Top demais seu setup!', 4, 5),
-('Essa paisagem é surreal!', 5, 3);
-
-
+    
 
 
 

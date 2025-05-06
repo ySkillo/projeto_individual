@@ -11,6 +11,7 @@
     <a href="home.html">Inicial</a> ///
     <a href="perfil.html">seu perfil</a>
     <div id="postagens"></div>
+    <h3 id="perfilUsuario"></h3>
 
 </body>
 
@@ -21,6 +22,9 @@
 
     var idUsuarioSessao = sessionStorage.ID_USUARIO;
     var usuarioSelecionado = sessionStorage.NOME_PERFIL_USUARIO;
+
+    var perfilUsuario = usuarioSelecionado;
+    
     fetch(`/postagem/usuarioSelecionado?nomePerfilUsuario=${encodeURIComponent(usuarioSelecionado)}`, {
         method: "GET"
     }).then(res => {
