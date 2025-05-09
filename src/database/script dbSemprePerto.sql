@@ -78,35 +78,6 @@ INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario,
 ('Ana Costa', 'anac', 'ana@email.com', '654.987.321-00', 'senhaabc', 'foto4.jpg'),
 ('Pedro Lima', 'pedrol', 'pedro@email.com', '789.123.456-00', 'senhadef', 'foto5.jpg');
 
-INSERT INTO tbSeguidor (idSeguidor, fkUsuarioSeguido) VALUES
-(2, 1),
-(3, 1),
-(1, 2),
-(4, 3),
-(5, 2);
-
-INSERT INTO tbPostagem (tituloPostagem, descricaoPostagem, imagemPostagem, fkUsuario) VALUES
-('Viagem ao Rio', 'Minha viagem ao Rio de Janeiro!', 'img1.jpg', 1),
-('Comida caseira', 'Receita especial da vovó!', 'img2.jpg', 2),
-('Meu setup', 'Mostrando meu setup gamer.', 'img3.jpg', 3),
-('Look do dia', 'Meu look para hoje.', 'img4.jpg', 4),
-('Pôr do Sol', 'O pôr do sol mais bonito que já vi.', 'img5.jpg', 5);
-
-INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada, curtida) VALUES
-(2, 1, 1, 'v'),
-(3, 1, 1, 'v'),
-(1, 2, 2, 'v'),
-(4, 3, 3, 'v'),
-(5, 4, 4, 'v');
-
-INSERT INTO tbComentarios (descricaoComentario, fkPostagem, fkUsuario) VALUES
-('Muito legal!', 1, 2),
-('Adorei a comida!', 2, 1),
-('Top demais!', 3, 4),
-('Arrasou no look!', 4, 3),
-('Foto linda!', 5, 1);
-
-
 
 select * from tbUsuario;
 select * from tbSeguidor;
@@ -117,8 +88,10 @@ select * from tbComentarios;
 select count(fkUsuarioSeguido)from tbSeguidor
 	where fkUsuarioSeguido = 2;
 
-    
-
+ -- idSeguidor INT
+  -- fkUsuarioSeguido INT
+select  count(idSeguidor) from tbSeguidor
+	where fkUsuarioSeguido = 1;
 
 
 
