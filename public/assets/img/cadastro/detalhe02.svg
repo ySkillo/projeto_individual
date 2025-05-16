@@ -1,0 +1,12 @@
+<svg width="921" height="504" viewBox="0 0 921 504" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_30_150" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="-365" width="1007" height="869">
+<ellipse cx="693.526" cy="203.153" rx="248.005" ry="200" transform="rotate(-70.7744 693.526 203.153)" fill="#F5CD28"/>
+<ellipse cx="291.796" cy="-72.2129" rx="248.005" ry="178" transform="rotate(-70.7744 291.796 -72.2129)" fill="#F5CD28"/>
+<ellipse cx="554.243" cy="5.47287" rx="158.103" ry="201" transform="rotate(-70.7744 554.243 5.47287)" fill="#F5CD28"/>
+<path d="M343.957 81.9014C368.65 11.0929 434.748 -30.2394 491.59 -10.4165C548.431 9.40643 574.492 82.8781 549.799 153.686C537.391 189.264 514.53 217.399 487.644 234.075C489.852 184.835 466.321 140.99 425.722 126.832C395.266 116.211 361.944 124.644 334.998 146.379C333.567 125.728 336.359 103.689 343.957 81.9014Z" fill="#F5CD28"/>
+</mask>
+<g mask="url(#mask0_30_150)">
+<rect x="905.095" y="-2" width="459" height="829" transform="rotate(90 905.095 -2)" fill="#F57A25"/>
+<rect x="905.095" y="-2" width="459" height="829" transform="rotate(90 905.095 -2)" fill="#F57A25"/>
+</g>
+</svg>

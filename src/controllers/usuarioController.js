@@ -52,11 +52,17 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
+    var imagem = req.body.imagemServer;
+    var perfil = req.body.perfilServer;
     var cpf = req.body.cpfServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
         res.status(400).send("Seu nome está undefined!");
+    } else if (perfil == undefined) {
+        res.status(400).send("Seu perfil está undefined!");
+    } else if (imagem == undefined) {
+        res.status(400).send("Sua imagem perfil está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
@@ -66,7 +72,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, cpf)
+        usuarioModel.cadastrar(nome, email, senha, imagem, perfil, cpf)
             .then(
                 function (resultado) {
                     res.json(resultado);

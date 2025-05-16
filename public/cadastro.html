@@ -5,33 +5,58 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <link rel="stylesheet" href="css/cadastro.css">
   <title>Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 </head>
 
 <body>
-          <a href="login.html">login</a><br>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" /><br>
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" /><br>
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="text"/><br>
-          </div>
-          <div class="campo">
-            <span>Cpf:</span>
-            <input id="cpf_input" type="text" /><br>
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
 
-          <div id="mensagem"></div>
+
+
+
+
+  <div class="container1">
+
+  </div>
+
+  <img class="imageDetalhe" src="assets/img/cadastro/detalhe02.svg" alt="">
+
+  <div class="container">
+    <div class="box_inputs">
+      <h1 id="title"><span>CAD</span>ASTRAR</h1>
+      <div class="campo">
+        <label for="">NOME</label>
+        <input id="nome_input" type="text" placeholder="seu nome..." /><br>
+      </div>
+      <div class="campo">
+        <label for="">PERFIL</label>
+        <input id="perfil_input" type="text" placeholder="nome do seu perfil..." /><br>
+      </div>
+      <div class="campo">
+        <label for="">EMAIL</label>
+        <input id="email_input" type="text" placeholder="meuemail@sptech.com" /><br>
+      </div>
+      <div class="campo">
+        <label for="">SENHA</label>
+        <input id="senha_input" type="text" placeholder="informe sua senha de 8 digítos..." /><br>
+      </div>
+      <div class="campo">
+        <label for="">CPF</label>
+        <input id="cpf_input" type="text" placeholder="000.000.000-00" /><br>
+      </div>
+      <button class="botao" onclick="cadastrar()">cadastrar</button>
+    </div>
+
+    <div class="boxFoto">
+      <div id="box_imagem_perfil">
+        <div id="div_img"></div>
+        <label for="fileInput" class="custom-file-button">selecionar</label>
+        <input type="file" id="fileInput" onchange="mostrarImagem()" accept="image/*" />
+      </div>
+    </div>
+  </div>
 
 </html>
 
@@ -45,9 +70,15 @@
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
+    var perfilVar = perfil_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var cpfVar = cpf_input.value;
+
+
+
+
+
 
 
     // Verificando se há algum campo em branco
@@ -55,7 +86,8 @@
       nomeVar == "" ||
       emailVar == "" ||
       senhaVar == "" ||
-      cpfVar == ""
+      cpfVar == "" ||
+      perfilVar == ""
     ) {
       console.log("Preencha todos os campos!");
       return false;
@@ -63,41 +95,100 @@
       console.log("Todos os campos preenchidos!");
     }
 
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        cpfServer: cpfVar
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
 
-        if (resposta.ok) {
 
-          mensagem.innerHTML = "direcionando para tela login aguarde 2 seg..."
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-          console.log("direcionando para tela login")
 
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+    var fileInput = document.getElementById('fileInput');
+    var div_img = document.getElementById('div_img');
+
+    if (fileInput.files && fileInput.files[0]) {
+      var file = fileInput.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var base64Image = e.target.result;
+
+        // Exibe a imagem
+        div_img.innerHTML = `<img src="${base64Image}" style="width: 100px; height: 100px;">`;
+
+        // Aqui você já pode enviar para o servidor
+        console.log("Base64 da imagem:", base64Image);
+
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            // crie um atributo que recebe o valor recuperado aqui
+            // Agora vá para o arquivo routes/usuario.js
+            nomeServer: nomeVar,
+            perfilServer: perfilVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar,
+            imagemServer: base64Image,
+            cpfServer: cpfVar
+          }),
+        })
+          .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+              setTimeout(() => {
+                window.location = "login.html";
+              }, "2000");
+              console.log("direcionando para tela login")
+
+            } else {
+              throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+          })
+          .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+      }
+
+      reader.readAsDataURL(file); // Lê como base64 (Data URL)
+    };
+
+
+
 
     return false;
   }
+
+
+
+  function mostrarImagem() {
+    const fileInput = document.getElementById('fileInput');
+    const div_img = document.getElementById('div_img');
+
+    if (fileInput.files && fileInput.files[0]) {
+      const imagemURL = URL.createObjectURL(fileInput.files[0]);
+      div_img.innerHTML = `<img src="${imagemURL}" style="width: 240px; height: 250px;">`;
+    } else {
+      div_img.innerHTML = "Nenhuma imagem selecionada.";
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </script>

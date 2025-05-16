@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Bayon&family=Fredoka:wght@300..700&family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000&display=swap');
+
+
+:root{
+
+    --fundoLogin: #232323;
+    --branco: #fff;
+    --preto: #000000;
+    --cinzaEscuro: #232323;
+    --amarelo: #F5CD28;
+    --azulClaro:  #297AED;
+    --laranja: #F57A25;
+}

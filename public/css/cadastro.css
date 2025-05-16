@@ -1,0 +1,173 @@
+@import url("../css/variaveis.css");
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 1900px;
+        height: 100vh;
+        background-color: var(--fundoLogin);
+    }
+    .container1{
+        position: absolute;
+        z-index: 0;
+        width: 730px;
+        height: 450px;
+        background-color: var(--branco);
+        border-radius: 15px;
+    }
+    .imageDetalhe{
+        position: absolute;
+        top: -28px;
+        width: 65%;
+        right: 15px;
+        z-index: 1;
+    }
+    .container{
+        z-index: 2;
+        width: 730px;
+        border: 1px solid var(--branco);
+        height: 450px;
+        background-color: transparent;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    #title{
+        font-family: "Bayon";
+        font-weight: 500;
+        font-size: 2.6rem;
+        margin-top:20px;
+        margin-left: 50px;
+    }
+
+    #title span{
+        color: var(--laranja);
+    }
+
+    .box_inputs{
+        width: 50%;
+    }
+
+    .campo{
+        display: flex;
+        flex-direction: column;
+        height: 40px;
+        width: 270px;
+        position: relative;
+        margin-left: 50px;
+        margin-top: 15px;
+
+    }
+
+
+    .campo label{
+        position: absolute;
+        font-family: "Sofia Sans";
+        top: -8px;
+        left: 10px;
+        background-color: var(--branco);
+        width: 60px;
+        text-align: center;
+        font-size: .9rem;
+    }
+
+   .campo input{
+        padding: 0px 10px 0px 15px;
+        border: 1px solid var(--cinzaEscuro);
+        border-radius: 8px;
+        width: 270px;
+        line-height: 40px;
+        outline: none;
+    }
+
+    .campo input:focus{
+        border: 2px solid var(--laranja);
+    }
+
+
+
+    .boxFoto{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        
+    }
+
+    #box_imagem_perfil{
+        margin-top: 10px;
+        height: 250px;
+        width: 240px;
+        border-radius: 10px;
+        background-color: #D9D9D9;
+        position: relative;
+        overflow: hidden;
+    }
+    #div_img{
+        height: 250px;
+        width: 280px;
+    }
+    #fileInput {
+        display: none; /* Esconde o input padrão */
+    }
+    .custom-file-button{
+        position: absolute;
+        display: block;
+        background-color: var(--cinzaEscuro);
+        font-family: "Sofia Sans";
+        color: var(--branco);
+        font-size: 1.2rem;
+        font-weight: 300;
+        width: 125px;
+        height: 35px;
+        line-height: 35px;
+        padding-left: 10px;
+        border-radius: 5px;
+        bottom: 20px;
+        left: 22%;
+        right: 22%;
+        background-image: url("../assets/img/icon/Camera.svg");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 23px;
+        cursor: pointer;
+        transition: .6s;
+    }
+    .custom-file-button:hover{
+        background-color: var(--laranja);
+    }
+
+    .botao{
+    width: 145px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: var(--laranja);
+    color: var(--branco);
+    font-family: "Fredoka";
+    font-size: 1.2rem;
+    padding-left: 15px;
+    text-align: left;
+    line-height: 35px;
+    transition: .6s;
+    cursor: pointer;
+    background-image: url("../assets/img/icon/Login.svg");
+    background-repeat: no-repeat;
+    background-position: center right -30px;
+    overflow: hidden;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+
+.botao:hover{
+    background-color: var(--cinzaEscuro);
+    background-position: center right 10px;
+}   
