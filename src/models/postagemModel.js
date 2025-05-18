@@ -3,7 +3,7 @@ var database = require("../database/config");
 function listar() {
     console.log("ACESSEI AS POSTAGENS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar())");
     var instrucaoSql = `
-        select p.*, u.nomeUsuario from tbPostagem as p 
+        select p.*, u.nomeUsuario, u.nomePerfilUsuario from tbPostagem as p 
             join tbUsuario as u
 	            on p.fkUsuario = u.idUsuario
                 order by p.idPostagem desc;

@@ -17,12 +17,13 @@
                             <div class="postagem">
                                 <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                                <span>@${post.nomePerfilUsuario}</span><br>
                                 <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
-                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}">curtir</button>
+                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}" style="border: none; background: transparent;"><img src="../assets/img/icon/deslike.svg" alt=""></button>
                                 <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
-                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" style="border: none; background: transparent;">abrir comentário</button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                                     <p>Nome User</p>    
@@ -38,12 +39,13 @@
                     container.innerHTML += `
                             <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
+                                <span>@${post.nomePerfilUsuario}</span><br>
                                 <div class="imagem"><img src="${post.imagemPostagem}" style="width: 200px; height: 200px;" loading="lazy"></div>
                                 <div class="titulo"><strong>Título:</strong> ${post.tituloPostagem}</div>
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
-                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}">curtir</button>
+                                <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}" style="border: none; background: transparent;"><img src="../assets/img/icon/deslike.svg" alt=""></button>
                                 <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
-                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')">abrir comentário</button>
+                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" style="border: none; background: transparent;"><img src="../assets/img/icon/coment.svg"></button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                                     <p>Nome User</p>    
@@ -94,10 +96,7 @@
 
 
 
-
-
-
-
+        
 
     function aplicarEstiloCurtidasFeitas() {
         fetch(`/curtida/curtidasFeitas?idUsuario=${idUsuarioSessao}`, {
@@ -109,7 +108,7 @@
                     const botaoCurtida = document.querySelector(`[data-id-postagem='${curtida.fkPostagemSelecionada}']`);
                     if (botaoCurtida) {
                         botaoCurtida.classList.add("clicado");
-                        botaoCurtida.style.backgroundColor = "#f00";
+                        botaoCurtida.innerHTML = `<img src="../assets/img/icon/like.svg" alt="">`;
                     }
                 });
             })
@@ -229,6 +228,7 @@
                 box.innerHTML = "";
                 usuario.forEach(post => {
                     box.innerHTML += `
+                                <img src="${post.fotoPerfil}" style="width: 40px; height: 40px; border-radius: 40px">
                                 <p>${post.nomePerfilUsuario}</p>
                                 <p>Data e Hora: ${post.dtInteracao}</p>
                                 <p style="border-bottom: 1px solid black; margin-bottom: 40px">${post.descricaoComentario}</p>
@@ -362,12 +362,12 @@
         var usuarioVar = usuario;
         var postagemVar = postagem;
         var donoPostagemVar = donoPostagem;
-        var verificacaoVar = "";
         const clicado = curtir.classList.toggle("clicado")
         
         if (clicado) {
             verificacao = "v";
-            curtir.style.backgroundColor = "#f00";
+    
+            curtir.innerHTML = `<img src="../assets/img/icon/like.svg" alt="">`
             console.log("Usuario: " + usuarioVar + " Postagem: " + postagemVar + " curtida: " + verificacao + " dono da postagem: " + donoPostagemVar)
 
             // Enviando o valor da nova input
@@ -407,9 +407,10 @@
 
                                         if (botao) {
                                             botao.classList.add("clicado");
-                                            botao.style.backgroundColor = "#f00"; // ou use btnCurtida(botao);
+                                            botao.innerHTML = `<img src="../assets/img/icon/like.svg" alt="">`
                                         } else {
-                                            botao.style.backgroundColor = "#fff";
+                                            botao.innerHTML = `<img src="../assets/img/icon/deslike.svg" alt="">`
+                            
                                         }
                                         
                                     });
@@ -443,7 +444,7 @@
 
 
         } else {
-            curtir.style.backgroundColor = "#fff";
+            curtir.innerHTML = `<img src="../assets/img/icon/deslike.svg" alt="">`
             verificacao = "f";
             console.log("Curtida removida / Usuario: " + usuarioVar + " Postagem: " + postagemVar + " curtida: " + verificacao + " dono da postagem: " + donoPostagemVar)
 
