@@ -14,7 +14,7 @@
                 if (idUsuarioSessao == post.fkUsuario) {
 
                     container.innerHTML += `
-                            <div class="postagem">
+                            <div class="postagem" style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
                                 <button onclick="apagarComentariosDaPostagem('${post.idPostagem}')">apagar</button>
                                 <div class="nome"><strong>Usuário:</strong> ${post.nomeUsuario}</div>
                                 <span>@${post.nomePerfilUsuario}</span><br>
@@ -23,7 +23,7 @@
                                 <div class="descricao"><strong>Descrição:</strong> ${post.descricaoPostagem}</div>
                                 <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}" style="border: none; background: transparent;"><img src="../assets/img/icon/deslike.svg" alt=""></button>
                                 <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
-                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" style="border: none; background: transparent;">abrir comentário</button>
+                                <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" style="border: none; background: transparent;"><img src="../assets/img/icon/coment.svg"></button>
                                 <input type="text"><button onclick="realizarComentario(this, '${post.idPostagem}')">></button>
                                 <div class="boxComentarios" style="padding: 15px; border-radius: 10px; margin: 10px; background: #d3d3d3; display: none; width: 400px; overflow: auto;">
                                     <p>Nome User</p>    
@@ -213,11 +213,14 @@
 
     };
 
+    
+
 
     function comentariosRealizados(botao, armazenarComentario) {
 
         var divPostagem = botao.parentElement;
         var box = divPostagem.querySelector(".boxComentarios");
+        
 
 
 
@@ -227,6 +230,9 @@
             .then(usuario => {
                 box.innerHTML = "";
                 usuario.forEach(post => {
+
+                    
+                    
                     box.innerHTML += `
                                 <img src="${post.fotoPerfil}" style="width: 40px; height: 40px; border-radius: 40px">
                                 <p>${post.nomePerfilUsuario}</p>
@@ -246,6 +252,8 @@
 
 
     }
+
+
 
 
 
