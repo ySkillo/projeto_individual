@@ -1,0 +1,289 @@
+@import url("../css/variaveis.css");
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 1900px;
+        height: 100vh;
+    background-color: var(--cinzaEscuro);
+}
+
+.container{
+    border-radius: 15px;
+    width: 98vw;
+    height: 94vh;
+    background-color: var(--branco);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#blob01{
+    width: 65%;
+    position: absolute;
+    top: -40px;
+    left: -30px;
+    transform: rotateY(10deg);
+    z-index: 0;
+}
+
+#blob02{
+    width: 65%;
+    position: absolute;
+    bottom: 0;
+    transform: rotateZ(180deg)
+        rotateY(190deg);
+    right: 0;
+}
+
+header{
+    z-index: 1;
+    width: 100%;
+    border: 1px solid red;
+
+}
+
+.conteudoSecundario{
+    width: 100%;
+    height: 89%;
+    position: relative;
+    background-image: url("../assets/img/alegria.svg");
+    background-repeat: no-repeat;
+    background-position: right 20px bottom;
+}
+.boxCards{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-direction: column;
+    width: 400px;
+    height: 100%;
+    position: absolute;
+}
+
+.boxCards .card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--branco);
+    border-radius: 20px;
+    width: 340px;
+    height: 150px;
+    margin-left: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+     box-shadow: -5px 5px 8px 2px #00000050; 
+    font-size: 2rem;
+    font-family: "Bayon";
+}
+
+.boxCards .card p{
+    padding: 15px 5px;
+    font-weight: 600;
+    text-align:justify;
+    
+}
+
+
+
+.conteudoPostagens{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    justify-content: center;
+}
+
+
+.postagem{
+    width: 600px;
+    margin-top: 40px;
+    overflow: hidden;
+    border-radius: 15px 15px 0px 0px;
+    
+}
+
+.postagemFeita{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    background-color: var(--cinzaEscuro);
+}
+.perfil{
+    font-family: "Sofia sans";
+    color: var(--branco);
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    
+}
+
+.nomePerfil{
+    margin-left: 15px;
+    color: var(--branco);
+    font-family: "Sofia sans";
+
+}
+
+.nomePerfil span{
+    color: #565656;
+}
+
+.postagemFoto{
+    border: 1px solid #565656;
+    background-color: #000000dd;
+    border-radius: 0px 0px 15px 15px;
+
+}
+
+.postagemFoto .imagem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 350px;
+    border-radius: 0px 0px 15px 15px;
+    overflow: hidden;
+}
+
+.imagem_postagem{
+    width: 60%;
+    height: auto;
+    object-fit: cover;
+}
+
+.titulo{
+    font-family: "Sofia sans";
+    margin-top: 5px;
+    margin-left:20px;
+    color: var(--preto);
+    font-size: 1.2rem;
+}
+.descricao{
+    font-family: "Sofia sans";
+    color: var(--preto);
+    font-size: 1rem;
+    margin-left:30px;
+}
+
+.curtidasClass{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.curtidasClass span{
+    font-family: "Bayon";
+    font-size: 1.2rem;
+}
+
+.botaoCurtirPost{
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+.botaoCurtirPost img{
+    width: 30px;
+    height: 30px;
+}
+
+
+.boxComentarios{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    padding: 15px;
+     border-radius: 10px; 
+     margin: 10px; 
+     background: #000000dd;
+     box-shadow: 0px 0px 30px 5px #0000007d; 
+     display: none; 
+     width: 290px; 
+     height: 400px;
+     scrollbar-width: none;
+     overflow-y: scroll;
+    bottom: 100px;
+    right: 5%;
+}
+
+
+
+
+.boxComentarios{
+    font-family: "Sofia sans";
+}
+
+.usuarioInfo{
+    display: flex;
+    color: var(--branco);
+}
+
+.mensagensInfo{
+    width: 90%;
+    height: auto;
+    background-color: #111111;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: var(--branco);
+    border-radius: 10px;
+}
+
+
+.infoName{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+
+.infoName h3{
+    font-size: 1rem;
+}
+.infoName p{
+    font-size: 0.8rem;
+}
+
+
+.inputComentario{
+    width: 180px;
+    line-height: 40px;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1.2rem;
+    border: none;
+    outline: none;
+    font-family: "Sofia sans";
+}
+
+.botaoComentario{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    color: var(--branco);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: var(--cinzaEscuro);
+    background-image: url("../assets/img/icon/Login.svg");
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: center;
+    transition: .6s;
+}
+
+.botaoComentario:hover{
+    transform: scale(1.1);
+}

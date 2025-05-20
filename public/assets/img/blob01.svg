@@ -1,0 +1,12 @@
+<svg width="948" height="545" viewBox="0 0 948 545" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_48_147" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="-59" y="-324" width="1007" height="869">
+<ellipse cx="248.005" cy="200" rx="248.005" ry="200" transform="matrix(-0.329289 -0.944229 -0.944229 0.329289 524.08 412.468)" fill="#F5CD28"/>
+<ellipse cx="248.005" cy="178" rx="248.005" ry="178" transform="matrix(-0.329289 -0.944229 -0.944229 0.329289 905.037 144.347)" fill="#F5CD28"/>
+<ellipse cx="158.103" cy="201" rx="158.103" ry="201" transform="matrix(-0.329289 -0.944229 -0.944229 0.329289 634.703 129.571)" fill="#F5CD28"/>
+<path d="M603.138 122.901C578.444 52.0929 512.347 10.7606 455.505 30.5835C398.663 50.4064 372.602 123.878 397.296 194.686C409.703 230.264 432.564 258.399 459.451 275.075C457.242 225.835 480.773 181.99 521.373 167.832C551.828 157.211 585.151 165.644 612.097 187.379C613.527 166.728 610.736 144.689 603.138 122.901Z" fill="#F5CD28"/>
+</mask>
+<g mask="url(#mask0_48_147)">
+<rect width="459" height="829" transform="matrix(0 1 1 0 42 39)" fill="#F5CD28"/>
+<rect width="459" height="829" transform="matrix(0 1 1 0 42 39)" fill="#F5CD28"/>
+</g>
+</svg>

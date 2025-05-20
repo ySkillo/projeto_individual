@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -11,25 +11,51 @@
 
 
 <body onload="validarSessao()">
-    <a href="../dashboard/cards.html">dashboard</a> ///
-    <a href="perfil.html">perfil</a>
-    <h3>eai, <span id="b_usuario">usuario</span>!</h3>
-
-    <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar"><br>
-    <div id="usuarios_pesquisa" style="color: #f00;"></div>
-    <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
-    <button class="btn-logout" onclick="limparSessao()">
-        <h3>Sair</h3>
-    </button>
 
 
+    <div class="container">
+        <img src="../assets/img/blob01.svg" alt="" id="blob01">
+        <img src="../assets/img/cadastro/detalhe02.svg" alt="" id="blob02">
 
-    <div id="postagens">
+        <header>
+
+            <nav>
+                <h3>eai, <span id="b_usuario">usuario</span>!</h3>
+                <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar"><br>
+                <div id="usuarios_pesquisa" style="color: #f00;"></div>
+                <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
+                <button class="btn-logout" onclick="limparSessao()">
+                    <h3>Sair</h3>
+                </button>
+            </nav>
+        </header>
+
+
+
+        <div class="conteudoSecundario">
+            <div class="boxCards">
+                <div class="card" style="margin-top: 40px;">
+                    <p>Você acaba de dar <span style="color: #F92626">entrada</span> no <span style="color: #8B26EC">Hospital</span> das <span style="color: #F5CD28">Emoções</span></p>
+                </div>
+                <div class="card">
+                    <p>Cada <span style="color: #297AED">emoção</span> tem uma <span style="color: #F57A25">história</span> para contar.</p>
+                </div>
+            </div>
+            <div class="conteudoPostagens">
+                <div id="postagens">
+                </div>
+            </div>
+        </div>
+
+
+
+
+        
+
     </div>
-
 
     <!-- Back-end para puxar postagens comentarios etc...  -->
     <script src="../js/home.js"></script>
 </body>
-</html>
 
+</html>
