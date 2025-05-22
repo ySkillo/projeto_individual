@@ -15,7 +15,7 @@ function autenticar(email, senha) {
 function pesquisarUsuario(nomePerfilUsuario) {
     console.log("ACESSEI O USUARIO MODEL");
     instrucaoSql = `
-        SELECT nomePerfilUsuario FROM tbUsuario
+        SELECT nomePerfilUsuario, fotoPerfil FROM tbUsuario
         WHERE nomePerfilUsuario LIKE '${nomePerfilUsuario}%';
     `;
     return database.executar(instrucaoSql);

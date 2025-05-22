@@ -157,34 +157,47 @@ function aplicarEstiloCurtidasFeitas() {
 
 
 
-function fazerPesquisa() {
+  function fazerPesquisa() {
 
-    var pesquisar = input_pesquisar.value;
-    var listar = [];
+        var pesquisar = input_pesquisar.value;
+        var listar = [];
 
-    if (pesquisar === "") {
-        usuarios_pesquisa.innerHTML = "";
-    } else {
-        fetch(`/usuarios/pesquisarUsuario?nomePerfilUsuario=${encodeURIComponent(pesquisar)}`, { ///usuarios/pesquisarUsuario?nomePerfilUsuario=(letra ou nome)
-            method: "GET",
-        }).then(res => {
-            if (res.status === 204) {
-                return [];
-            }
-            return res.json();
-        }).then(dados => {
-            listar = dados.map(post => post.nomePerfilUsuario); //.map percorre a array
-            usuarios_pesquisa.innerHTML = listar //atualiza a DOM com os nomes
-                .map(nome =>
-                    `<h3 onclick="usuarioSelecionado(decodeURIComponent('${encodeURIComponent(nome)}'))">${nome}</h3>`
-                ).join("");
+        if (pesquisar === "") {
+            usuarios_pesquisa.innerHTML = "";
+            usuarios_pesquisa.style.display = "none";
 
-        }).catch(erro => {
-            console.error("Erro na busca de usuários:", erro);
-            usuarios_pesquisa.innerHTML = "<p>Erro ao buscar usuários.</p>";
-        });
+        } else {
+            fetch(`/usuarios/pesquisarUsuario?nomePerfilUsuario=${encodeURIComponent(pesquisar)}`, { ///usuarios/pesquisarUsuario?nomePerfilUsuario=(letra ou nome)
+                method: "GET",
+            }).then(res => {
+                if (res.status === 204) {
+                    return [];
+                }
+                return res.json();
+            }).then(dados => {
+                listar = dados.map(post => post.nomePerfilUsuario); //.map percorre a array
+                usuarios_pesquisa.style.display = "flex";
+                usuarios_pesquisa.innerHTML = listar //atualiza a DOM com os nomes
+
+                    .map(nome =>
+                        `<h3 onclick="usuarioSelecionado(decodeURIComponent('${encodeURIComponent(nome)}'))">${nome}</h3>`
+                    ).join("");
+
+            }).catch(erro => {
+                console.error("Erro na busca de usuários:", erro);
+                usuarios_pesquisa.innerHTML = "<p>Erro ao buscar usuários.</p>";
+            });
+        }
     }
-}
+
+
+
+
+
+
+
+
+
 
 function usuarioSelecionado(armazenarUsuario) {
     var pesquisar = input_pesquisar.value;
