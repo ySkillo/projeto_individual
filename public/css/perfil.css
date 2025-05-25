@@ -7,7 +7,418 @@
 
 body{
     display: flex;
+    flex-direction: column;
     max-width: 1900px;
     height: 100vh;
     background-color: var(--branco);
+    background-image: url("../assets/img/fundoPerfil.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
+}
+
+
+.perfil-usuario{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#perfil_usuario{
+    display: flex;
+    font-family: "Sofia sans";
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 999;
+}
+#perfil_usuario div{
+    text-align: right;
+}
+
+#perfil_usuario img{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin-left: 10px;
+}
+.btn-logout{
+    z-index: 999;
+    position: absolute;
+    right: 20px;
+    top:65px;
+    width: 70px;
+    height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    font-family: "Sofia sans";
+    font-weight: 400;
+    border: none;
+    background-color: transparent;
+    background-image: url("../assets/img/icon/sair.svg");
+    background-repeat: no-repeat;
+    background-position: center right 5px;
+    background-size: 20px;
+    cursor: pointer;
+}
+
+
+.fazer_postagem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 50px;
+    width: 40%;
+}
+
+.fazer_postagem h1{
+    font-size: 1.2rem;
+    font-family: "Bayon";
+    font-weight: 500;
+    letter-spacing: 1px;
+    width: 350px;
+}
+
+
+.box_imagem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #D9D9D9;
+    position: relative;
+}
+
+
+.div_img{
+    width: 100%;
+    height: 100%;
+}   
+
+.custom-file-button{
+    position: absolute;
+    background: var(--cinzaEscuro);
+    color: var(--branco);
+    bottom: 20px;
+    border-radius: 11px;
+    font-family: "Sofia sans";
+    font-size: 1rem;
+    padding: 8px;
+    padding-right: 30px;
+    padding-left: 10px;
+    cursor: pointer;
+
+}
+
+#fileInput {
+        display: none; /* Esconde o input padrão */
+    }
+
+
+.box_inputs{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin-top: 25px;
+    gap: 10px;
+    justify-content: flex-start;
+    font-family: "Sofia sans";
+    font-size: 1rem;
+}
+
+.box_inputs input{
+    width: 200px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: none ;
+    background-color: #D9D9D9;
+}
+
+.box_inputs input:focus{
+    border: 2px solid var(--amarelo);
+}
+
+
+.box_inputs textarea{
+    width: 340px;
+    max-width: 340px;
+    min-width: 340px;
+    height: 200px;
+    max-height: 100px;
+    min-height: 100px;
+    padding-top: 10px;
+    padding-left: 10px;
+    outline: none;
+    border-radius: 5px;
+    border: none ;
+    background-color: #D9D9D9;
+}
+
+
+.box_inputs textarea:focus{
+    border: 2px solid var(--amarelo);
+}
+
+.box_inputs button{
+    margin-top: 10px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--amarelo);
+    color: var(--cinzaEscuro);
+    font-family: "Sofia sans";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#container_postagem{
+    padding: 0px 80px;
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+#container_postagem h1{
+    position: absolute;
+    top: 11%;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-family: "Bayon";
+    font-size: 2.4rem;
+    color: var(--cinzaEscuro);
+}
+#postagens{
+    position: absolute;
+    width: 85%;
+    height: 550px;
+    bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    justify-content: center;
+    gap: 10px;
+}
+
+#postagens .postagem{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 calc(33.33% - 10px);
+    height: 250px;
+    width: 250px;
+    background-color: rgba(209, 209, 209, 0.705);
+    box-sizing: border-box;
+    border-radius: 10px;
+    position: relative;
+    padding: 10px;
+    
+}
+#postagens .postagem .imagem {
+    position: relative;
+    width: 240px;
+    height: 230px;
+    z-index: 1;
+}
+
+#postagens .postagem .imagem img {
+    width: 100%;
+    height: 230px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+#postagens .postagem .imagem .conteudo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#postagens .postagem .imagem:hover .conteudo {
+    opacity: 1;
+}
+
+
+.conteudo_postagem{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.conteudo_postagem .titulo{
+    font-family: "Sofia sans";
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.conteudo_postagem .descricao strong{
+    font-family: "Sofia sans";
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.conteudo_postagem .descricao p{
+    font-family: "Sofia sans";
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: left;
+    margin-left: 10px;
+    width: 160px;
+    height: 100px;
+    max-height: 100px;
+    scrollbar-width: none;
+    overflow-x: scroll;
+    overflow-wrap: break-word; 
+}
+.curtidaDiv{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 10px;
+}
+
+.curtidaDiv button{
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: .6s;
+}
+
+.curtidaDiv span{
+    color: var(--branco);
+    font-family: "Sofia sans";
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.abrirComentarios{
+    position: absolute;
+    right: 10px;
+    bottom: 70px;
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.postagem .deletar{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    padding: 4px;
+    outline: none;
+}
+
+
+
+
+
+
+
+.boxComentarios{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    padding: 15px;
+     border-radius: 10px; 
+     margin: 10px; 
+     background: #ffffffdd;
+     box-shadow: 0px 0px 30px 5px #0000007d;
+     width: 270px;
+        height: auto;
+        max-height: 400px;
+     scrollbar-width: none;
+     overflow-y: scroll;
+     top:130px; /* ajuste conforme a posição que você quer */
+    left: 20%;
+    font-family: "Sofia sans";
+    z-index: 9999;
+}
+
+
+.usuarioInfo{
+    display: flex;
+    color: var(--branco);
+}
+
+.mensagensInfo{
+    width: 90%;
+    height: auto;
+    background-color: #111111;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: var(--branco);
+    border-radius: 10px;
+}
+
+
+.infoName{
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+
+.infoName h3{
+    font-size: 1rem;
+}
+.infoName p{
+    font-size: 0.8rem;
 }

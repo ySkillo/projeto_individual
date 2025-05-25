@@ -80,8 +80,7 @@ fetch("/postagem/listar", {
                                 </div>  
                                 </div>
    
-                                <div style="display: flex; align-items: center; border: 1px solid rgb(174, 174, 174); height: 40px; margin-top: 10px; margin-bottom: 20px;width: 240px;border-radius: 20px; background-color: #fff;">
-                                </div>
+                             
                                 
                             </div>
                         `;

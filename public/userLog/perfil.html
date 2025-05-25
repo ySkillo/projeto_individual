@@ -12,22 +12,39 @@
 
 <body onload="validarSessao()">
 
+
+    <div style="width: 300px; display: flex; justify-content: flex-end; padding-right: 25px;">
+        <div id="perfil_usuario">
+        </div>
+    </div>
+    <button class="btn-logout" onclick="limparSessao()">
+        <h3>sair</h3>
+    </button>
+
     <main class="perfil-usuario">
+        <div class="fazer_postagem">
 
-        
-        titulo
-        <input type="text" id="inputTitulo"><br>
-        descricao
-        <input type="text" id="inputDescricao"><br>
-        imagem
-        <div id="div_img"></div>
-        <input type="file" id="fileInput" onchange="mostrarImagem()" accept="image/*" /><br><br>
-        <button onclick="imagemSelecionada()">realizar postagem</button><br><br><br><br><br><br>
-        <div id="mensagem_carregamento"></div>
+            <h1>FAZER POSTAGEM</h1>
+            <div class="box_imagem">
+                <div id="div_img"></div>
+                <label for="fileInput" class="custom-file-button">selecionar imagem</label>
+                <input type="file" id="fileInput" onchange="mostrarImagem()" accept="image/*" />
+            </div>
+            <div class="box_inputs">
+                <input type="text" id="inputTitulo" maxlength="30" placeholder="Titulo...">
+                <div>
+                    <textarea name="" id="inputDescricao" maxlength="250" placeholder="Descrição..."></textarea>
+                    <button onclick="imagemSelecionada()">Postar</button>
+                </div>
+            </div>
+        </div>
+
+
         <div id="container_postagem">
-
-
-            <div id="postagens"></div>
+            <h1>SUAS <span>POSTAGENS</span></h1>
+            <div id="postagens">
+                <img src="../assets/img/icon/carregamento.gif" alt="" width="100px" height="100px">
+            </div>
         </div>
 
     </main>

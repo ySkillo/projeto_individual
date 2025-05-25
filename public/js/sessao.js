@@ -5,7 +5,7 @@ function validarSessao() {
     var foto = sessionStorage.FOTO_USUARIO;
 
 
-    var data = "25/05/2025, 16:15"
+    var data = "26/05/2025, 16:15"
 
     if (email != null && nome != null) {    
         perfil_usuario.innerHTML = `
