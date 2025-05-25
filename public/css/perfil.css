@@ -1,0 +1,13 @@
+@import url("../css/variaveis.css");
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    max-width: 1900px;
+    height: 100vh;
+    background-color: var(--branco);
+}

@@ -171,8 +171,6 @@
     // Esta função será chamada quando o botão "imagem selecionada" for clicado
     function imagemSelecionada() {
 
-
-
         var tituloVar = inputTitulo.value
         var descricaoVar = inputDescricao.value
         var usuarioVar = sessionStorage.ID_USUARIO

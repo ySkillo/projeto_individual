@@ -2,14 +2,20 @@
 function validarSessao() {
     var email = sessionStorage.EMAIL_USUARIO;
     var nome = sessionStorage.NOME_USUARIO;
-    var cpf = sessionStorage.CPF_USUARIO;
+    var foto = sessionStorage.FOTO_USUARIO;
 
-    var b_usuario = document.getElementById("b_usuario");
-    var b_cpf = document.getElementById("b_cpf");
 
-    if (email != null && nome != null && cpf != null) {
-        b_usuario.innerHTML = nome;
-        b_cpf.innerHTML = cpf;
+    var data = "25/05/2025, 16:15"
+
+    if (email != null && nome != null) {    
+        perfil_usuario.innerHTML = `
+            <div>
+                <p style="color: #232323;">${nome}</p>
+                <p style="color: #9D9D9D; font-size: 0.85rem;">${data}</p>
+            </div>
+            <img src="${foto}">
+        `
+        
     } else {
         window.location = "../login.html";
     }

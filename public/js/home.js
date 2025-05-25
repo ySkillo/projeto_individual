@@ -1,6 +1,7 @@
 //Listando postagens
 var idUsuarioSessao = sessionStorage.ID_USUARIO;
 
+
 fetch("/postagem/listar", {
     method: "GET",
 }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
@@ -35,15 +36,14 @@ fetch("/postagem/listar", {
                                 <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}" class="botaoCurtirPost"><img src="../assets/img/icon/deslike.svg" alt=""></button>
                                 <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" class="botaoCurtirPost"><img src="../assets/img/icon/coment.svg"></button>
+                                <input type="text" class="inputComentario" placeholder="realizar comentario..."><button onclick="realizarComentario(this, '${post.idPostagem}')" class="botaoComentario"></button>
                                 <div class="boxComentarios" style="color: #fff">
                                     <p>Atualizando</p>    
                                     <p>COMENTARIOS...</p>    
                                 </div>  
                                 </div>
    
-                                <div style="display: flex; align-items: center; border: 1px solid rgb(174, 174, 174); height: 40px; margin-top: 10px; margin-bottom: 20px;width: 240px;border-radius: 20px; background-color: #fff;">
-                                <input type="text" class="inputComentario" placeholder="realizar comentario..."><button onclick="realizarComentario(this, '${post.idPostagem}')" class="botaoComentario"></button>
-                                </div>
+                                
                                 
                             </div>
                         
@@ -73,6 +73,7 @@ fetch("/postagem/listar", {
                                 <button onclick="curtidasPostagem(this, '${post.idPostagem}', '${idUsuarioSessao}', '${post.fkUsuario}')" id="btn_curtida" data-id-postagem="${post.idPostagem}" class="botaoCurtirPost"><img src="../assets/img/icon/deslike.svg" alt=""></button>
                                 <span id="qtdCurtidas-${post.idPostagem}">0</span><br>
                                 <button onclick="comentarios(this); comentariosRealizados(this, '${post.idPostagem}')" class="botaoCurtirPost"><img src="../assets/img/icon/coment.svg"></button>
+                                <input type="text" class="inputComentario" placeholder="realizar comentario..."><button onclick="realizarComentario(this, '${post.idPostagem}')" class="botaoComentario"></button>
                                 <div class="boxComentarios" style="color: #fff">
                                     <p>Atualizando</p>    
                                     <p>COMENTARIOS...</p>    
@@ -80,7 +81,6 @@ fetch("/postagem/listar", {
                                 </div>
    
                                 <div style="display: flex; align-items: center; border: 1px solid rgb(174, 174, 174); height: 40px; margin-top: 10px; margin-bottom: 20px;width: 240px;border-radius: 20px; background-color: #fff;">
-                                <input type="text" class="inputComentario" placeholder="realizar comentario..."><button onclick="realizarComentario(this, '${post.idPostagem}')" class="botaoComentario"></button>
                                 </div>
                                 
                             </div>
@@ -266,7 +266,6 @@ function comentariosRealizados(botao, armazenarComentario) {
 
     var divPostagem = botao.parentElement;
     var box = divPostagem.querySelector(".boxComentarios");
-    var comentarioFeitos = "";
 
 
 
@@ -275,7 +274,7 @@ function comentariosRealizados(botao, armazenarComentario) {
         method: "GET",
     }).then(res => res.json())
         .then(usuario => {
-            box.innerHTML = comentarioFeitos;
+            box.innerHTML = "";
             usuario.forEach(post => {
 
                 const data = new Date(post.dtInteracao);
@@ -287,7 +286,7 @@ function comentariosRealizados(botao, armazenarComentario) {
                     minute: "2-digit"
                 });
 
-                comentarioFeitos += `
+                box.innerHTML += `
                                 <div class="mensagensInfo">
                                 <div class="usuarioInfo">
                                     <img src="${post.fotoPerfil}" style="width: 40px; height: 40px; border-radius: 40px">
@@ -302,16 +301,14 @@ function comentariosRealizados(botao, armazenarComentario) {
 
             })
 
-            box.innerHTML = comentarioFeitos;
-            
-        }).catch(() => {
-                box.innerHTML = "";
-                box.innerHTML += `
-                        <p style="color: #fff">Nenhum comentario</p>
+        }).catch(
+                function (erro) {
+                    box.innerHTML = "";
+                    box.innerHTML += `
+                        <p>Nenhum comentario</p>
                     `;
-                
-            }
-        );
+                }
+            );
 
 
 }
@@ -371,6 +368,8 @@ function realizarComentario(botao, idPostagem) {
                 // }, "2000");
                 console.log("comentario realizado")
                 input.value = "";
+                comentariosRealizados(botao, idPostagem);
+
             } else {
                 throw "Houve um erro ao tentar realizar o comentario!";
             }

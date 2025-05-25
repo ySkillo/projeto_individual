@@ -20,10 +20,10 @@
         <header>
 
             <nav>
-                <!-- <h3>eai, <span id="b_usuario">usuario</span>!</h3> -->
+                
 
-                <div style="width: 300px; border: 1px solid red; ">
-                    <h1>SEMPRE<span>PERTO</span></h1>
+                <div style="width: 300px; display: flex; align-items: center;">
+                    <h1 class="logo">SEMPRE <span>PERTO</span></h1>
                 </div>
 
                 <div class="box_input" style="width: 300px; display: flex; justify-content: space-between;">
@@ -31,12 +31,14 @@
                     <button onclick="usuarioSelecionado()" class="btn_pesquisar"></button>
                     <div id="usuarios_pesquisa"></div>
                 </div>
-                <div style="width: 300px; border: 1px solid red; ">
-                    <h3 style="display: none;">CPF:<span id="b_cpf"></span></h3>
-                    <button class="btn-logout" onclick="limparSessao()">
-                        <h3>Sair</h3>
-                    </button>
+
+                <div style="width: 300px; display: flex; justify-content: flex-end; padding-right: 25px;">
+                     <div id="perfil_usuario">
+                     </div>
                 </div>
+                <button class="btn-logout" onclick="limparSessao()">
+                        <h3>sair</h3>
+                    </button>
             </nav>
         </header>
 
