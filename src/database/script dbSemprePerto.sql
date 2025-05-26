@@ -1,11 +1,7 @@
 show databases;
-
 create database dbSemprePerto;
 drop database dbSemprePerto;
-
 use dbSemprePerto;
-
-
 
 CREATE TABLE tbUsuario(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -15,13 +11,6 @@ CREATE TABLE tbUsuario(
     cpfUsuario CHAR (14) NOT NULL UNIQUE,
     senhaUsuario VARCHAR(30),
 	fotoPerfil LONGTEXT
-);	
-
-CREATE TABLE tbSeguidor(
-	idSeguidor INT,
-    fkUsuarioSeguido INT,
-	 constraint primary key (fkUsuarioSeguido, idSeguidor),
-        foreign key (fkUsuarioSeguido) references tbUsuario(idUsuario)
 );
 
 
@@ -41,7 +30,7 @@ CREATE TABLE tbCurtidas(
     fkUsuarioPostagem INT,
     fkPostagemSelecionada INT,
     constraint primary key(fkUsuarioSelecionado, fkPostagemSelecionada, fkUsuarioPostagem),
-	dtComentario TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	dtCurtida TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     curtida char(1)
 		constraint chkCurtida check (curtida IN('v','f')),
     constraint fkUsuarioSelecionado foreign key (fkUsuarioSelecionado)
@@ -71,6 +60,34 @@ CREATE TABLE tbComentarios(
 		references tbUsuario(idUsuario)
 );
 
+
+
+-- ordenado pela data mais recente
+SELECT 
+    DATE(c.dtCurtida) AS dia,
+    COUNT(c.curtida) AS totalCurtidas
+FROM  
+    tbCurtidas AS c
+WHERE 
+    c.curtida = 'v'
+    AND c.fkUsuarioPostagem = 1
+GROUP BY 
+    DATE(c.dtCurtida)
+ORDER BY 
+    dia DESC
+LIMIT 6;
+
+INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada, dtCurtida, curtida) VALUES
+(2, 1, 1, '2025-05-26 10:15:00', 'v'),
+(3, 1, 1, '2025-05-27 10:15:00', 'v'),
+(4, 1, 2, '2025-05-28 10:15:00', 'v'),
+(5, 1, 2, '2025-05-29 12:30:00', 'v'),
+(2, 1, 2, '2025-05-30 10:15:00', 'v'),
+(3, 1, 2, '2025-05-31 10:15:00', 'v'),
+(4, 1, 1, '2025-06-01 10:15:00', 'v'),
+(5, 1, 1, '2025-06-02 12:30:00', 'v');
+
+
 INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario, senhaUsuario, fotoPerfil) VALUES
 ('João Silva', 'joaos', 'joao@email.com', '123.456.789-00', 'senha123', 'foto1.jpg'),
 ('Maria Oliveira', 'mariao', 'maria@email.com', '987.654.321-00', 'senha456', 'foto2.jpg'),
@@ -78,63 +95,7 @@ INSERT INTO tbUsuario (nomeUsuario, nomePerfilUsuario, emailUsuario, cpfUsuario,
 ('Ana Costa', 'anac', 'ana@email.com', '654.987.321-00', 'senhaabc', 'foto4.jpg'),
 ('Pedro Lima', 'pedrol', 'pedro@email.com', '789.123.456-00', 'senhadef', 'foto5.jpg');
 
-
 select * from tbUsuario;
-select * from tbSeguidor;
 select * from tbPostagem;
 select * from tbCurtidas;
 select * from tbComentarios;
-
-select count(fkUsuarioSeguido)from tbSeguidor
-	where fkUsuarioSeguido = 2;
-
- -- idSeguidor INT
-  -- fkUsuarioSeguido INT
-select  count(idSeguidor) from tbSeguidor
-	where fkUsuarioSeguido = 1;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada) VALUES
-(2, 1, 2), (3, 1, 2), (4, 1, 2), (5, 1, 2), (6, 2), (7, 1, 2), (8, 1, 2), (9, 1, 2), (10, 1, 2),
-(11, 1, 2), (12, 1, 2), (13, 1, 2), (14, 1, 2), (15, 1, 2), (16, 1, 2), (17, 1, 2), (18, 1, 2), (19, 1, 2), (20, 1, 2),
-(21, 1, 2), (22, 1, 2), (23, 1, 2), (24, 1, 2), (25, 1, 2), (26, 1, 2), (27, 1, 2), (28, 1, 2), (29,1,  2), (30, 1, 2),
-(31, 1, 2), (32, 1, 2), (33, 1, 2), (34, 1, 2), (35, 1, 2);
-
--- Postagem 3 - 30 curtidas
-INSERT INTO tbCurtidas (fkUsuarioSelecionado, fkUsuarioPostagem, fkPostagemSelecionada) VALUES
-(36, 1, 3), (37, 1, 3), (38, 1, 3), (39, 1, 3), (40, 1, 3), (41, 1, 3), (42, 1, 3), (1, 3, 1, 3), (44, 1, 3), (45, 1, 3),
-(46, 1, 3), (47, 1, 3), (48, 1, 3), (49, 1, 3), (50, 1, 3), (51, 1, 3), (52, 1, 3), (1, 3, 1, 3), (54, 1, 3), (55, 1, 3),
-(56, 1, 3), (57, 1, 3), (58, 1, 3), (59, 1, 3), (60, 1, 3), (61, 1, 3), (62, 1, 3), (1, 3, 1, 3), (64, 1, 3), (65, 1, 3);

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        background-color: #f4f4f9;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    div {
+        background-color: white;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    canvas {
+        width: 500px;
+        height: 300px;
+    }
+</style>
+
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+</body>
+
+</html>
+<script>
+
+    var listarSemana = []
+    var idUsuario = sessionStorage.ID_USUARIO;
+
+    var dias = [];
+    var curtidas = [];
+
+    fetch(`/dashboard/curtidasSemana?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+
+            listarSemana = dados;
+
+            for (var i = 0; i < listarSemana.length; i++) {
+
+                var dataNormal = listarSemana[i].dia;
+                var dataObj = new Date(dataNormal);
+                var dia = String(dataObj.getDate()).padStart(2, '0');
+                var mes = String(dataObj.getMonth() + 1).padStart(2, '0');
+                var dataFormatada = `${dia}/${mes}`;
+
+                dias.push(dataFormatada);
+                curtidas.push(listarSemana[i].totalCurtidas);
+            }
+
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dias,
+                    datasets: [{
+                        label: 'curtidas',
+                        data: curtidas,
+                        backgroundColor: '#4e79a7',
+                        borderRadius: 8,
+                        borderSkipped: false,
+                        hoverBackgroundColor: '#333',
+                        hoverBorderColor: '#333'
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+        }).catch(
+            function (erro) {
+                console.log("nenhuma data")
+            }
+        );
+
+
+
+</script>
