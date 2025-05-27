@@ -6,46 +6,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/sessao.js"></script>
+    <link rel="stylesheet" href="../css/dashboards.css">
     <title>Document</title>
 </head>
 
-<style>
-    body {
-        background-color: #f4f4f9;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+<body onload="validarSessao()">
+    
+    <h1 id="tituloDashBoard">DASH<span>BOARD</span></h1>
 
-    div {
-        background-color: white;
-        padding: 20px;
-        border-radius: 16px;
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    }
 
-    canvas {
-        width: 500px;
-        height: 300px;
-    }
-</style>
+    <h1 id="tituloGrafico">Curtidas dos últimos 6 dias</h1>
+    <div class="menu">
+        <div class="fotoDoPerfil" id="fotoDoPerfil">
+        </div>
+        <h1>NOME: <span id="usuarioNome"></span></h1>
+        <h1>EMAIL: <span id="usuarioEmail"></span></h1>
+        <h1>CPF: <span id="usuarioCpf"></span></h1>
 
-<body>
-    <div>
+        <a href="./home.html">HOME</a>
+        <a href="./perfil.html">PERFIL</a>
+        <button onclick="limparSessao()">sair da conta</button>
+    </div>
+
+    <div class="grafico">
         <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="cards_center">
+        <div class="cardGrafico">
+            <h3>Total postagens</h3>
+            <h1 id="postagensRealizadasUser">+ 0</h1>
+            <p>Você está bombando nas <span>postagens feitas</span> em!</p>
+        </div>
+        <div class="cardGrafico" id="imagemAlegria">
+            <h3>Total curtidas</h3>
+            <h1 id="curtidasContagem">+ 0</h1>
+            <p>Você está bombando nas <span>curtidas</span> em!</p>
+        </div>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h1>📄 Postagens Recentes <span id="qntPostagensRecent">0</span></h1>
+            <h3>Últimas Postagens</h3>
+            <div class="divPostagens" id="divPostagens_titulos">
+                <p>- nenhuma postagem recente</p>
+                
+            </div>
+        </div>
+        <div class="card">
+            <h1>💬 Total de Comentários: <span style="color: #232323;" id="qntComentariosRecent">0</span></h1>
+            <h3>Últimos Comentários</h3>
+            <div class="divPostagens" id="divComentario_info">
+                <p>- nenhum comentario feito</p>
+                
+            </div>
+        </div>
+        <div class="card">
+            <h1>🔔 Atividades Recentes:</h1>
+            <div class="divPostagens" id="divNotificacoes">
+                <p>- nenhuma notificação por aqui</p>
+            
+            </div>
+        </div>
     </div>
 </body>
 
 </html>
 <script>
 
+    fotoDoPerfil.innerHTML = `
+        <img src="${sessionStorage.FOTO_USUARIO}">
+    `
+    usuarioNome.innerHTML = `
+        ${sessionStorage.NOME_USUARIO}
+    `
+    usuarioEmail.innerHTML = `
+        ${sessionStorage.EMAIL_USUARIO}
+    `
+    usuarioCpf.innerHTML = `
+        ${sessionStorage.CPF_USUARIO}
+    `
+
     var listarSemana = []
     var idUsuario = sessionStorage.ID_USUARIO;
 
     var dias = [];
     var curtidas = [];
+    var curtidasTotal = 0;
 
     fetch(`/dashboard/curtidasSemana?idUsuario=${idUsuario}`, {
         method: "GET",
@@ -64,6 +113,7 @@
 
                 dias.push(dataFormatada);
                 curtidas.push(listarSemana[i].totalCurtidas);
+                curtidasTotal = curtidasTotal + listarSemana[i].totalCurtidas;
             }
 
             const ctx = document.getElementById('myChart');
@@ -97,6 +147,134 @@
             }
         );
 
+
+
+
+
+
+
+
+
+
+            var listaUltimasPostagens = []
+        fetch(`/dashboard/ultimasPostagens?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            var mensagem = "";
+            listaUltimasPostagens = dados;
+
+            var contador = 0;
+            for (var i = 0; i < listaUltimasPostagens.length; i++) {
+                contador++
+                console.log(listaUltimasPostagens[i].tituloPostagem)
+                mensagem += `<p>- ${listaUltimasPostagens[i].tituloPostagem}</p>`
+            }
+            qntPostagensRecent.innerHTML = contador
+            divPostagens_titulos.innerHTML = mensagem;
+
+        }).catch(
+            function (erro) {
+                console.log("nenhuma postagem feita")
+            }
+        );
+
+
+
+
+
+        var listaComentarioRecentes = []
+        fetch(`/dashboard/comentarioRecentes?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            var mensagemComent = "";
+            listaComentarioRecentes = dados;
+
+            var contadorComent = 0;
+            for (var i = 0; i < listaComentarioRecentes.length; i++) {
+                contadorComent++;
+                mensagemComent += `<p>- ${listaComentarioRecentes[i].nomeUsuario} comentou "${listaComentarioRecentes[i].descricaoComentario}";</p><br>`
+            }
+            qntComentariosRecent.innerHTML = contadorComent;
+           divComentario_info.innerHTML = mensagemComent
+
+        }).catch(
+            function (erro) {
+                console.log("nenhum comentario")
+            }
+        );
+
+
+
+
+         var listaRecentes = []
+        fetch(`/dashboard/notificacoes?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            var mensagemRecentes = "";
+            listaRecentes = dados;
+
+            
+            for (var i = 0; i < listaRecentes.length; i++) {
+                mensagemRecentes += `<p>- ${listaRecentes[i].nomeUsuario} curtiu sua postagem "${listaRecentes[i].tituloPostagem}"</p><br>`
+            }
+            divNotificacoes.innerHTML = mensagemRecentes;
+    
+
+        }).catch(
+            function (erro) {
+                console.log("nenhuma notificação")
+            }
+        );
+
+
+
+
+
+        var listaTotalCurtidas = []
+        fetch(`/dashboard/totalCurtidas?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            var contagemCurtidas = "";
+            listaTotalCurtidas = dados;
+
+            for (var i = 0; i < listaTotalCurtidas.length; i++) {
+                contagemCurtidas = `+ ${listaTotalCurtidas[i].curtida}`
+            }
+            curtidasContagem.innerHTML = contagemCurtidas;
+    
+
+        }).catch(
+            function (erro) {
+                console.log("nenhuma curtida")
+            }
+        );
+
+
+
+
+        var listaTotalPostagem = []
+        fetch(`/dashboard/quantidadePostagem?idUsuario=${idUsuario}`, {
+        method: "GET",
+    }).then(res => res.json())//pega a resposta (res) e transforma em JSON (um formato fácil de ler em JavaScript)
+        .then(dados => {
+            var contagemPoster = "";
+            listaTotalPostagem = dados;
+
+            for (var i = 0; i < listaTotalPostagem.length; i++) {
+                contagemPoster = `+ ${listaTotalPostagem[i].poster}`
+            }
+            postagensRealizadasUser.innerHTML = contagemPoster;
+    
+
+        }).catch(
+            function (erro) {
+                console.log("nenhuma curtida")
+            }
+        );
 
 
 </script>

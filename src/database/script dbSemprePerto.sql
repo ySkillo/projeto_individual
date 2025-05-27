@@ -99,3 +99,49 @@ select * from tbUsuario;
 select * from tbPostagem;
 select * from tbCurtidas;
 select * from tbComentarios;
+
+
+
+
+
+
+
+
+-- puxar postagens DASHBOARD
+SELECT tituloPostagem 
+FROM tbPostagem 
+WHERE fkUsuario = ?
+ORDER BY idPostagem DESC 
+LIMIT 3;
+
+-- curtidas recentes DASHBOARD
+SELECT u.nomeUsuario, p.tituloPostagem, c.dtCurtida
+FROM tbCurtidas c
+JOIN tbUsuario u ON u.idUsuario = c.fkUsuarioSelecionado
+JOIN tbPostagem p ON p.idPostagem = c.fkPostagemSelecionada
+WHERE c.fkUsuarioPostagem = ? AND c.curtida = 'v'
+ORDER BY c.dtCurtida DESC
+LIMIT 5;
+
+
+
+
+-- comentarios recentes DASHBOARD
+SELECT u.nomeUsuario, co.descricaoComentario, co.dtInteracao
+FROM tbComentarios co
+JOIN tbUsuario u ON u.idUsuario = co.fkUsuario
+JOIN tbPostagem p ON p.idPostagem = co.fkPostagem
+WHERE p.fkUsuario = ?
+ORDER BY co.dtInteracao DESC;
+
+
+-- quantidade total de curtidas das postagens
+select count(curtida) from tbCurtidas
+	join tbUsuario on idUsuario = fkUsuarioPostagem
+    where idUsuario = 1;
+
+
+-- quantidade total de postagens
+select count(idPostagem) from tbPostagem
+	join tbUsuario on idUsuario = fkUsuario
+    where idUsuario = 6;	

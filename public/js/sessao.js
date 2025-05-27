@@ -4,7 +4,6 @@ function validarSessao() {
     var nome = sessionStorage.NOME_USUARIO;
     var foto = sessionStorage.FOTO_USUARIO;
 
-
     var data = "26/05/2025, 16:15"
 
     if (email != null && nome != null) {    
@@ -15,7 +14,6 @@ function validarSessao() {
             </div>
             <img src="${foto}">
         `
-        
     } else {
         window.location = "../login.html";
     }
