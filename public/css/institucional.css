@@ -157,7 +157,44 @@
     z-index: 999;
     transition: transform .7s ease-out;
 }
+.soltar{
+   position: absolute;
+   right: 150px;
+   width: 50px;
+   height: 50px;
+   border-radius: 50px;
+   border: none;
+   background-color: #474747;
+   color: #fff;
+   cursor: pointer;
+   background-image: url("../assets/img/icon/Mute.svg");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 25px;
+   transition: all .3s;
+   transform: rotate(-15deg);
+}
 
+.soltar:hover, .mutar:hover{
+   background-color: #0f0f0f;
+}
+.mutar{
+   position: absolute;
+   right: 150px;
+   width: 50px;
+   height: 50px;
+   border-radius: 50px;
+   border: none;
+   background-color: #474747;
+   background-image: url("../assets/img/icon/Sound.svg");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 25px;
+   cursor: pointer;
+   transition: all .3s;
+   transform: rotate(-15deg);
+
+}
 .conteudo .header.scrolled {
     transform: translateY(-50px); /* Aplica na header */
 }
@@ -235,6 +272,7 @@
     transition: .3s;border: 1px solid var(--branco);
     text-align: left;
     padding-left: 28px;
+    z-index: 2;
  }
 
 

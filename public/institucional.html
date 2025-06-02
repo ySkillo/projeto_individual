@@ -4,14 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/institucional.css" />
-    <link
-      rel="stylesheet"
-      href="assets/post-no-bills-jaffna-cufonfonts-webfont/style.css"
-    />
     <title>SEMPRE - PERTO</title>
   </head>
 
   <body>
+
+    <audio id="entradaAudio" src="assets/audio/Inside Out OST Piano cover 'Bundle of joy' [1hour].mp3" preload="auto"></audio>
+
     <!-- intro do web site! -->
     <div class="intro-screen">
       <h1 class="intro-title">
@@ -19,7 +18,6 @@
         <span class="right">PERTO</span>
       </h1>
     </div>
-
     <section class="home" id="home">
         <!-- div animações -->
       <div class="box-center">
@@ -51,9 +49,10 @@
                 <li><a href="#momentos">momentos</a></li>
               </ul>
             </nav>
-            <a href="#" class="logarUser">entrar</a>
-
-            <a href="#" class="cadastrarUser"></a>
+            <a href="login.html" class="logarUser">entrar</a>
+            <button onclick="mutar()" class="mutar" id="mute"></button>
+            <button onclick="tocar()" class="soltar" id="play"></button>
+            <a href="cadastro.html" class="cadastrarUser"></a>
           </header>
           <div class="boxLeft">
             <div class="card">
@@ -101,6 +100,7 @@
 </html>
 
 <script>
+  
   //scroll animação básica...
   const el = document.querySelector(".header");
   const nv = document.querySelector(".navbar");
@@ -113,4 +113,27 @@
       nv.classList.remove("aumento");
     }
   });
+  const audio = document.getElementById('entradaAudio');
+
+ 
+
+  function tocar(){
+      mute.style.display = "block";
+      play.style.display = "none";
+      audio.volume = 0.3; 
+      audio.play()
+      if(audio.play()){
+        console.log("audio tocando!")
+      }
+  }
+  function mutar(){
+      mute.style.display = "none";
+      play.style.display = "block";
+      if(audio.play()){
+        audio.volume = 0
+        console.log("mutado!")
+      }
+  }
+
+
 </script>
