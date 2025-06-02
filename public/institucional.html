@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/institucional.css" />
+    <link
+      rel="stylesheet"
+      href="assets/post-no-bills-jaffna-cufonfonts-webfont/style.css"
+    />
+    <title>SEMPRE - PERTO</title>
+  </head>
+
+  <body>
+    <!-- intro do web site! -->
+    <div class="intro-screen">
+      <h1 class="intro-title">
+        <span class="left">SEMPRE</span>
+        <span class="right">PERTO</span>
+      </h1>
+    </div>
+
+    <section class="home" id="home">
+        <!-- div animações -->
+      <div class="box-center">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+
+      <div class="conteudoImg">
+        <div class="conteudo">
+          <header class="header">
+            <a href="#" class="logo">SEMPRE <span>PERTO</span></a>
+            <nav class="navbar">
+              <ul>
+                <li><a href="#home">inicio</a></li>
+                <li><a href="#historia">história</a></li>
+                <li><a href="#projeto">projeto</a></li>
+                <li><a href="#momentos">momentos</a></li>
+              </ul>
+            </nav>
+            <a href="#" class="logarUser">entrar</a>
+
+            <a href="#" class="cadastrarUser"></a>
+          </header>
+          <div class="boxLeft">
+            <div class="card">
+              <h1>
+                a <span style="color: #f5cd28">felicidade</span> estÁ mais
+                <span style="color: #f92626">proxíma</span> do que
+                <span style="color: #8b26ec">imagina</span>
+              </h1>
+            </div>
+            <div class="card">
+              <h1>
+                como É FICAR <span style="color: #8b26ec">INTERNADO</span> Pela
+                <span style="color: #297aed">primeira</span> vez? o que
+                <span style="color: #f5cd28">sentimos</span>?
+              </h1>
+            </div>
+          </div>
+          <div class="boxRight">
+            <div class="card">
+              <h1>
+                Você acaba de dar <span style="color: #f92626">entrada</span> no
+                <span style="color: #8b26ec">Hospital</span> das
+                <span style="color: #f5cd28">Emoções</span>
+              </h1>
+            </div>
+            <div class="card">
+              <h1>
+                Cada <span style="color: #297aed">emoção</span> tem uma
+                <span style="color: #f57a25">história</span> para contar.
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="historia" id="historia">
+      <img src="assets/img/blob4Top.svg" alt="" id="blob3Top" />
+      <div class="cardColor"></div>
+      <div class="card"></div>
+    </section>
+    <section class="projeto" id="projeto"></section>
+    <section class="momentos" id="momentos"></section>
+  </body>
+</html>
+
+<script>
+  //scroll animação básica...
+  const el = document.querySelector(".header");
+  const nv = document.querySelector(".navbar");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+      el.classList.add("scrolled");
+      nv.classList.add("aumento");
+    } else {
+      el.classList.remove("scrolled");
+      nv.classList.remove("aumento");
+    }
+  });
+</script>
