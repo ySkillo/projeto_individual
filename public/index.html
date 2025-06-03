@@ -90,9 +90,30 @@
     </section>
     
     <section class="historia" id="historia">
+      <h1 class="titulo-historia">Lembranças</h1>
       <img src="assets/img/blob4Top.svg" alt="" id="blob3Top" />
       <div class="cardColor"></div>
-      <div class="card"></div>
+      <div class="card">
+        <h1>nem tudo está perdido, TUDO COMEÇOU EM 2019</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+           Animi rerum dolore est assumenda deleniti, placeat doloremque 
+           sapiente unde eos eius odio obcaecati laborum vitae 
+           labore libero recusandae! Sit, quam sequi.</p>
+        <button onclick="abrir()"></button>
+      </div>
+      <div class="hist" id="historiaLembrancas">
+        <div id="cardEmocoes">
+          <button class="fechar" onclick="fechar()" id="colorBtnClose"></button>
+          <div class="infos" id="informacoesCard">
+              <h1>nem tudo está perdido, TUDO COMEÇOU EM 2019</h1>
+              <p>Nunca havia feito uma cirurgia na vida, até em um 
+                simples dia chegar em casa e começar a sentir fortes
+                 dores em um dos rins, até o momento pensei que fosse normal</p>
+                 <img src="assets/img/alegria.svg" alt="">
+          </div>
+          <button class="prox" onclick="proximo()" id="btnEstilo"></button>
+        </div>
+      </div>
     </section>
     <section class="projeto" id="projeto"></section>
     <section class="momentos" id="momentos"></section>
@@ -133,6 +154,49 @@
         audio.volume = 0
         console.log("mutado!")
       }
+  }
+
+  function abrir(){
+      historiaLembrancas.style.display = "flex";
+      cardEmocoes.classList.add("mostrar");
+  }
+
+  var contadorProx = 0;
+  var imagensEmocoes = ['assets/img/alegria.svg','assets/img/ansiedade.svg','assets/img/alegria.svg']
+  var titulos = ['nem tudo está perdido, TUDO COMEÇOU EM 2019','title2','title3']
+  var textos = ['Nunca havia feito uma cirurgia na vida, até em um simples dia chegar em casa e começar a sentir fortes dores em um dos rins, até o momento pensei que fosse normal','texto2','texto3']
+
+  function proximo(){
+    if(contadorProx == 0){
+      contadorProx++
+      cardEmocoes.style.backgroundImage = 'url("../assets/img/cardRaiva.svg")';
+      btnEstilo.style.backgroundColor = "#F92626"
+      colorBtnClose.style.backgroundColor = "#F92626"
+    }else if(contadorProx == 1){
+      contadorProx++
+      cardEmocoes.style.backgroundImage = 'url("../assets/img/cardMedo.svg")';
+      btnEstilo.style.backgroundColor = "#8B26EC"
+      colorBtnClose.style.backgroundColor = "#8B26EC"
+    }else{
+      contadorProx = 0;
+      cardEmocoes.style.backgroundImage = 'url("../assets/img/cardAlegria.svg")';
+      btnEstilo.style.backgroundColor = "#F5CD28"
+      colorBtnClose.style.backgroundColor = "#F5CD28"
+    }
+    console.log("contador: " + contadorProx)
+    for(var i = 0; i <= contadorProx; i++){
+      if(i == contadorProx){
+         informacoesCard.innerHTML = `
+        <h1>${titulos[i]}</h1>
+              <p>${textos[i]}</p>
+              <img src="${imagensEmocoes[i]}">
+      `
+      }   
+    }
+  }
+
+  function fechar(){
+      historiaLembrancas.style.display = "none";
   }
 
 
