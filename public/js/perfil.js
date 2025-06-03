@@ -430,10 +430,6 @@ function quantidadeDeCurtidas(idPostagem) {
 }
 
 
-
-
-
-
 function apagarComentariosDaPostagem(idPostagem) {
     console.log("Apagando comentários da postagem:", idPostagem);
 
@@ -444,7 +440,7 @@ function apagarComentariosDaPostagem(idPostagem) {
             if (res.ok) {
                 console.log("Comentários apagados com sucesso.");
                 // Agora você pode chamar a função que deleta a postagem
-                deletarPostagem(idPostagem);
+                apagarCurtidasDaPostagem(idPostagem)
             } else {
                 console.error("Erro ao apagar os comentários.");
             }
@@ -453,6 +449,31 @@ function apagarComentariosDaPostagem(idPostagem) {
             console.log("Não foi possível apagar os comentários:", erro);
         });
 }
+
+
+function apagarCurtidasDaPostagem(idPostagem) {
+    console.log("Apagando curtidas da postagem:", idPostagem);
+
+    fetch(`/curtida/apagarCurtidasDaPostagem?idPostagem=${idPostagem}`, {
+        method: "DELETE"
+    })
+        .then(res => {
+            if (res.ok) {
+                console.log("Comentários apagados com sucesso.");
+                // Agora você pode chamar a função que deleta a postagem
+                deletarPostagem(idPostagem);
+            } else {
+                console.error("Erro ao apagando as curtidas.");
+            }
+        })
+        .catch((erro) => {
+            console.log("Não foi possível apagar os comentários:", erro);
+        });
+}
+
+
+
+
 
 
 
@@ -465,9 +486,7 @@ function deletarPostagem(idPostagem) {
         .then(res => {
             if (res.ok) {
                 console.log("Postagem apagada com sucesso.");
-                mensagem_carregamento.innerHTML = "apagando postagem... aguarde..."
                 setTimeout(() => {
-                    mensagem_carregamento.innerHTML = ""
                     atualizarPagina();
                 }, 1000);
             } else {

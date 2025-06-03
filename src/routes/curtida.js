@@ -20,4 +20,7 @@ router.get("/quantidadeCurtidas", function (req, res) {
     curtidaController.quantidadeCurtidas(req, res);
 });
 
+router.delete("/apagarCurtidasDaPostagem", function (req, res) {
+    curtidaController.apagarCurtidasDaPostagem(req, res);
+});
 module.exports = router;

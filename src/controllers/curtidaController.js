@@ -106,10 +106,29 @@ function quantidadeCurtidas(req, res){
     });
 }
 
+function apagarCurtidasDaPostagem(req, res){
+    var idPostagem = req.query.idPostagem;
+
+    if (!idPostagem) {
+        return res.status(400).send("Parâmetro idPostagem é obrigatório.");
+    }
+    curtidaModel.apagarCurtidasDaPostagem(idPostagem).then(function (resultado){
+        if(resultado.length > 0){
+            res.status(200).json(resultado);
+        }else{
+            res.status(204).send("nenhuma curtida!");
+        }
+    }).catch(function (erro){
+        console.log(erro)   
+        console.log("Houve um erro ao remover curtida: ", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
 
 module.exports = {
     realizarCurtida,
     curtidasFeitas,
     removendoCurtida,
-    quantidadeCurtidas
+    quantidadeCurtidas,
+    apagarCurtidasDaPostagem
 }
