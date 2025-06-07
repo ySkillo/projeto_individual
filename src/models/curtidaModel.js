@@ -55,9 +55,9 @@ function quantidadeCurtidas(idPostagem) {
 
 function apagarCurtidasDaPostagem(idPostagem){
      console.log("ACESSEI AS POSTAGENS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function apagarCurtidasDaPostagem())");
-    var instrucaoSql = `
-         DELETE FROM tbCurtidas WHERE fkPostagemSelecionada = ${idPostagem};
-    `;
+    var instrucaoSql = ` DELETE FROM tbCurtidas WHERE fkUsuarioPostagem IN (
+         SELECT fkUsuario FROM tbPostagem WHERE idPostagem = ${idPostagem}
+     );`
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
