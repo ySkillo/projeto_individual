@@ -8,8 +8,11 @@
   </head>
 
   <body>
-
-    <audio id="entradaAudio" src="assets/audio/Inside Out OST Piano cover 'Bundle of joy' [1hour].mp3" preload="auto"></audio>
+    <audio
+      id="entradaAudio"
+      src="assets/audio/Inside Out OST Piano cover 'Bundle of joy' [1hour].mp3"
+      preload="auto"
+    ></audio>
 
     <!-- intro do web site! -->
     <div class="intro-screen">
@@ -19,7 +22,7 @@
       </h1>
     </div>
     <section class="home" id="home">
-        <!-- div animações -->
+      <!-- div animações -->
       <div class="box-center">
         <div class="circle"></div>
         <div class="circle"></div>
@@ -88,40 +91,62 @@
         </div>
       </div>
     </section>
-    
+
     <section class="historia" id="historia">
       <h1 class="titulo-historia">Lembranças</h1>
       <img src="assets/img/blob4Top.svg" alt="" id="blob3Top" />
       <div class="cardColor"></div>
       <div class="card">
         <h1>nem tudo está perdido, TUDO COMEÇOU EM 2019</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-           Animi rerum dolore est assumenda deleniti, placeat doloremque 
-           sapiente unde eos eius odio obcaecati laborum vitae 
-           labore libero recusandae! Sit, quam sequi.</p>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Animi rerum
+          dolore est assumenda deleniti, placeat doloremque sapiente unde eos
+          eius odio obcaecati laborum vitae labore libero recusandae! Sit, quam
+          sequi.
+        </p>
         <button onclick="abrir()"></button>
       </div>
       <div class="hist" id="historiaLembrancas">
         <div id="cardEmocoes">
           <button class="fechar" onclick="fechar()" id="colorBtnClose"></button>
           <div class="infos" id="informacoesCard">
-              <h1>nem tudo está perdido, TUDO COMEÇOU EM 2019</h1>
-              <p>Nunca havia feito uma cirurgia na vida, até em um 
-                simples dia chegar em casa e começar a sentir fortes
-                 dores em um dos rins, até o momento pensei que fosse normal</p>
-                 <img src="assets/img/alegria.svg" alt="">
+            <h1>nem tudo está perdido, TUDO COMEÇOU EM 2019</h1>
+            <p>
+              Nunca havia feito uma cirurgia na vida, até em um simples dia
+              chegar em casa e começar a sentir fortes dores em um dos rins, até
+              o momento pensei que fosse normal
+            </p>
+            <img src="assets/img/alegria.svg" alt="" />
           </div>
           <button class="prox" onclick="proximo()" id="btnEstilo"></button>
         </div>
       </div>
     </section>
-    <section class="projeto" id="projeto"></section>
+    <section class="projeto" id="projeto">
+      <img src="assets/img/blobCenterBottom.svg" alt="" class="blobBottom" />
+      <h1 class="title-project">
+        Raio de <span style="color: #297aed">ESPERANÇA</span>
+      </h1>
+      <div class="left">
+        <p class="text-title">
+          faça <span style="color: #8b26ec;">login</span> e fique ainda mais <span style="color: #297aed;">próximo</span> de seus <span style="color: #f5cd28;">familiares</span> e <span style="color: #f57a25;">amigos</span>
+        </p>
+        <div class="box-text">
+          <p>
+            Com a nossa rede social, <span style="color: #000; font-weight: 600; text-transform: uppercase;">Sempre <span style="color: #f5cd28;">Perto</span></span>, você estará mais próximo da
+            sua família, mesmo que a distância seja grande. Em momentos
+            difíceis, lembre-se: <span style="color: #297aed;">você nunca estará sozinho</span>.
+          </p>
+        </div>
+      </div>
+      <div class="right"></div>
+    </section>
     <section class="momentos" id="momentos"></section>
+    <footer></footer>
   </body>
 </html>
 
 <script>
-  
   //scroll animação básica...
   const el = document.querySelector(".header");
   const nv = document.querySelector(".navbar");
@@ -134,70 +159,79 @@
       nv.classList.remove("aumento");
     }
   });
-  const audio = document.getElementById('entradaAudio');
+  const audio = document.getElementById("entradaAudio");
 
- 
-
-  function tocar(){
-      mute.style.display = "block";
-      play.style.display = "none";
-      audio.volume = 0.3; 
-      audio.play()
-      if(audio.play()){
-        console.log("audio tocando!")
-      }
+  function tocar() {
+    mute.style.display = "block";
+    play.style.display = "none";
+    audio.volume = 0.3;
+    audio.play();
+    if (audio.play()) {
+      console.log("audio tocando!");
+    }
   }
-  function mutar(){
-      mute.style.display = "none";
-      play.style.display = "block";
-      if(audio.play()){
-        audio.volume = 0
-        console.log("mutado!")
-      }
+  function mutar() {
+    mute.style.display = "none";
+    play.style.display = "block";
+    if (audio.play()) {
+      audio.volume = 0;
+      console.log("mutado!");
+    }
   }
 
-  function abrir(){
-      historiaLembrancas.style.display = "flex";
-      cardEmocoes.classList.add("mostrar");
+  function abrir() {
+    historiaLembrancas.style.display = "flex";
+    cardEmocoes.classList.add("mostrar");
   }
 
   var contadorProx = 0;
-  var imagensEmocoes = ['assets/img/alegria.svg','assets/img/ansiedade.svg','assets/img/alegria.svg']
-  var titulos = ['nem tudo está perdido, TUDO COMEÇOU EM 2019','title2','title3']
-  var textos = ['Nunca havia feito uma cirurgia na vida, até em um simples dia chegar em casa e começar a sentir fortes dores em um dos rins, até o momento pensei que fosse normal','texto2','texto3']
+  var imagensEmocoes = [
+    "assets/img/alegria.svg",
+    "assets/img/ansiedade.svg",
+    "assets/img/alegria.svg",
+  ];
+  var titulos = [
+    "nem tudo está perdido, TUDO COMEÇOU EM 2019",
+    "title2",
+    "title3",
+  ];
+  var textos = [
+    "Nunca havia feito uma cirurgia na vida, até em um simples dia chegar em casa e começar a sentir fortes dores em um dos rins, até o momento pensei que fosse normal",
+    "texto2",
+    "texto3",
+  ];
 
-  function proximo(){
-    if(contadorProx == 0){
-      contadorProx++
+  function proximo() {
+    if (contadorProx == 0) {
+      contadorProx++;
       cardEmocoes.style.backgroundImage = 'url("../assets/img/cardRaiva.svg")';
-      btnEstilo.style.backgroundColor = "#F92626"
-      colorBtnClose.style.backgroundColor = "#F92626"
-    }else if(contadorProx == 1){
-      contadorProx++
+      btnEstilo.style.backgroundColor = "#F92626";
+      colorBtnClose.style.backgroundColor = "#F92626";
+    } else if (contadorProx == 1) {
+      contadorProx++;
       cardEmocoes.style.backgroundImage = 'url("../assets/img/cardMedo.svg")';
-      btnEstilo.style.backgroundColor = "#8B26EC"
-      colorBtnClose.style.backgroundColor = "#8B26EC"
-    }else{
+      btnEstilo.style.backgroundColor = "#8B26EC";
+      colorBtnClose.style.backgroundColor = "#8B26EC";
+    } else {
       contadorProx = 0;
-      cardEmocoes.style.backgroundImage = 'url("../assets/img/cardAlegria.svg")';
-      btnEstilo.style.backgroundColor = "#F5CD28"
-      colorBtnClose.style.backgroundColor = "#F5CD28"
+      cardEmocoes.style.backgroundImage =
+        'url("../assets/img/cardAlegria.svg")';
+      btnEstilo.style.backgroundColor = "#F5CD28";
+      colorBtnClose.style.backgroundColor = "#F5CD28";
     }
-    console.log("contador: " + contadorProx)
-    for(var i = 0; i <= contadorProx; i++){
-      if(i == contadorProx){
-         informacoesCard.innerHTML = `
+    console.log("contador: " + contadorProx);
+    for (var i = 0; i <= contadorProx; i++) {
+      if (i == contadorProx) {
+        informacoesCard.innerHTML = `
         <h1>${titulos[i]}</h1>
               <p>${textos[i]}</p>
               <img src="${imagensEmocoes[i]}">
-      `
-      }   
+      `;
+      }
     }
   }
 
-  function fechar(){
-      historiaLembrancas.style.display = "none";
+  function fechar() {
+    historiaLembrancas.style.display = "none";
   }
-
-
 </script>

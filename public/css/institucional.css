@@ -440,23 +440,6 @@ z-index: 1;
     100%{ transform: translateY(-30px) scale(1.1); }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
  .historia{
      width: 100%;
      display: flex;
@@ -470,7 +453,6 @@ z-index: 1;
      position: relative;
  }
  .historia .titulo-historia{
-   z-index: 2;
    font-family: "Bayon";
    font-size: 3rem;
    font-weight: 500;
@@ -682,8 +664,97 @@ z-index: 1;
  .projeto{
      width: 100%;
      height: 100vh;
-     border: 1px solid rgb(0, 0, 0);
+     position: relative;
+     padding-left: 5%;
+     background-image: url("../assets/img/blobRightProject.svg");
+     background-position: center right;
+     background-repeat: no-repeat;
+     background-size: 12%;
+     display: flex;
+     flex-direction: row;
  }
+
+ .projeto .left{
+   width: 60%;
+   height: 100%;
+ }
+
+ .projeto .left .text-title{
+   margin-top: 20%;
+   text-transform: uppercase;
+   color: var(--branco);
+   font-size: 2.5rem;  
+   font-family: "Bayon";
+   line-height: 40px;
+ }
+ .projeto .left .text-title span{
+   font-family: "Bayon";
+ }
+
+ .projeto .left .box-text{
+   font-family: "Poppins";
+   margin-top: 4%;
+   font-size: 1.5rem;
+   padding: 3%;
+   width: 72%;
+   background-color: var(--branco);
+   border-radius: 5px;
+   z-index: 3;
+     box-shadow: -8px 10px 20px 2px #ffffff3b;
+ }
+
+  .projeto .left .box-text p{
+   font-weight: 200;
+  }
+
+ .projeto .right{
+   border: 1px solid red;
+   width: 40%;
+   height: 100%;
+ }
+
+ 
+ .projeto .blobBottom{
+   position: absolute;
+   left: 10%;
+   bottom: -7%;
+   width: 50%;
+   z-index: -1;
+ }
+
+
+   .projeto .title-project{
+      font-family: "Bayon";
+      font-size: 2.5rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      top: 7%;
+      color: var(--branco);
+      position: absolute;
+      z-index: 4;
+   }
+   .projeto .title-project span{
+      font-family: "Bayon";
+   }
+   .projeto .title-project::before{
+      content: '';
+      position: absolute;
+      height: 3px;
+      width: 60%;
+      background-color: var(--branco);
+      bottom: 16px;
+      left: 0;
+      border-radius: 3px;
+   }
+
+
+
+
+
+
+
+
+
  .momentos{
      width: 100%;
      height: 100vh;
