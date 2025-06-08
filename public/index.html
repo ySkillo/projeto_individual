@@ -138,8 +138,23 @@
             difíceis, lembre-se: <span style="color: #297aed;">você nunca estará sozinho</span>.
           </p>
         </div>
+        <img src="assets/img/ansiedadeComunicado.svg" alt="" class="ansiedade">
+        <div class="redes-sociais">
+          <button class="whatsapp">whatsapp</button>
+          <button class="instagram"></button>
+        </div>
       </div>
-      <div class="right"></div>
+      <div class="right">
+
+        <div class="cards">
+          <img src="assets/img/tristezaProjeto.svg" alt="" class="tristeza">
+          <button class="btnLeft" onclick="anteriorC()"></button>
+          <div class="carroselCards" id="cardCarrosel">
+            <img src="assets/img/01.PNG" alt="">
+          </div>
+          <button class="btnRight" onclick="proximoC()"></button>
+        </div>
+      </div>
     </section>
     <section class="momentos" id="momentos"></section>
     <footer></footer>
@@ -233,5 +248,63 @@
 
   function fechar() {
     historiaLembrancas.style.display = "none";
+  }
+  
+  var contadorCarrosel = 0;
+  var imagensCarrosel = [
+    "assets/img/01.PNG",
+    "assets/img/02.PNG",
+    "assets/img/03.PNG",
+    "assets/img/04.PNG",
+    "assets/img/05.PNG"
+  ];
+
+  setInterval(() => {
+    contadorCarrosel + 1;
+    proximoC();
+    console.log(contadorCarrosel)
+  }, 6000);
+
+  function proximoC() {
+    if (contadorCarrosel == 0) {
+      contadorCarrosel++;
+    } else if (contadorCarrosel == 1) {
+      contadorCarrosel++;
+    }else if (contadorCarrosel == 2) {
+      contadorCarrosel++;
+    } else if (contadorCarrosel == 3) {
+      contadorCarrosel++;
+    }else {
+      contadorCarrosel = 0;
+    }
+    console.log("contador: " + contadorCarrosel);
+    for (var i = 0; i <= contadorCarrosel; i++) {
+      if (i == contadorCarrosel) {
+        cardCarrosel.innerHTML = `
+              <img src="${imagensCarrosel[i]}">
+      `;
+      }
+    }
+  }
+  function anteriorC() {
+    if (contadorCarrosel == 4) {
+      contadorCarrosel--;
+    } else if (contadorCarrosel == 3) {
+      contadorCarrosel --;
+    }else if (contadorCarrosel == 2) {
+      contadorCarrosel --;
+    }else if (contadorCarrosel == 1) {
+      contadorCarrosel --;
+    }else if (contadorCarrosel == 0) {
+      contadorCarrosel = 4;
+    }
+    console.log("contador: " + contadorCarrosel);
+    for (var i = 0; i <= contadorCarrosel; i++) {
+      if (i == contadorCarrosel) {
+        cardCarrosel.innerHTML = `
+              <img src="${imagensCarrosel[i]}">
+      `;
+      }
+    }
   }
 </script>

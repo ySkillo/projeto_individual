@@ -677,8 +677,52 @@ z-index: 1;
  .projeto .left{
    width: 60%;
    height: 100%;
+   position: relative;
+ }
+ .projeto .left .ansiedade{
+   position: absolute;
+   left: -9%;
+   bottom: 0;
  }
 
+ .projeto .left .redes-sociais{
+   position: absolute;
+   left: 6%;
+   bottom: 4%;
+   height: 35px;
+   width: 200px;
+   display: flex;
+   justify-content: space-between;
+ }
+ .projeto .left .redes-sociais .whatsapp{
+   width: 130px;
+   background-color: var(--laranja);
+   color: var(--branco);
+   border: none;
+   border-radius: 8px;
+   height: 35px;
+   text-align: left;
+   padding-left: 10px;
+   font-size: 1.1rem;
+   background-image: url("../assets/img/icon/WhatsApp.svg");
+   background-position: center right 10px;
+   background-repeat: no-repeat;
+   background-size: 25px;
+   cursor: pointer;
+ }
+.projeto .left .redes-sociais .instagram{
+   width: 50px;
+   background-color: var(--preto);
+   color: var(--branco);
+   border: none;
+   border-radius: 8px;
+   height: 35px;
+   background-image: url("../assets/img/icon/Instagram.svg");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 30px;
+   cursor: pointer;
+ }
  .projeto .left .text-title{
    margin-top: 20%;
    text-transform: uppercase;
@@ -708,12 +752,81 @@ z-index: 1;
   }
 
  .projeto .right{
-   border: 1px solid red;
+   display: flex;
+   justify-content: center;
+   align-items: center;
    width: 40%;
    height: 100%;
  }
 
+ .projeto .right .cards{
+   width: 450px;
+   height: 300px;
+   position: relative;
+   display: flex;
+   background-color: transparent;
+   justify-content: center;
+   align-items: center;
+   flex-direction: row;
+ }
+ .projeto .right .cards .tristeza{
+   width: 40%;
+   position: absolute;
+   left: 4%;
+   top: -31%;
+ }
+ .projeto .right .cards .carroselCards{
+   width: 100%;
+   height: 100%;
+   background-color: #fff;
+   overflow: hidden;
+   border: 2px solid var(--branco);
+   border-radius: 15px;
+ }
+
+ .projeto .right .cards .carroselCards img{
+   width: 100%;
+   height: 100%;
+   object-fit: fill;
+ }
+
+ .projeto .right .cards .btnLeft{
+   width: 50px;
+   height: 50px;
+   border-radius: 50px;
+   position: absolute;
+   left: -25px;
+   border: 2px solid #fff;
+   background-color: var(--azulClaro);
+   background-image: url("../assets/img/icon/Forward.svg");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 35px;
+   transform: rotate(180deg);
+   cursor: pointer;
+ }
+ .projeto .right .cards .btnRight{
+   width: 50px;
+   height: 50px;
+   border-radius: 50px;
+   position: absolute;
+   right: -25px;
+   border: 2px solid #fff;
+   background-color: var(--azulClaro);
+   background-image: url("../assets/img/icon/Forward.svg");
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: 35px;
+   cursor: pointer;
+ }
  
+
+
+
+
+
+
+
  .projeto .blobBottom{
    position: absolute;
    left: 10%;
