@@ -28,19 +28,7 @@ body{
   font-size: 2.1rem;
   color: var(--branco);
 }
-#tituloGrafico{
-    position: absolute;
-  top: 26.2%;
-  left: 32.45%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: #fff;
-  padding: 8px;
-  font-family: "Sofia sans";
-  letter-spacing: 1px;
-  font-size: 1.4rem;
-  color: var(--cinzaEscuro);
-}
+
 #tituloDashBoard span{
   color: var(--cinzaEscuro);
 }
@@ -300,10 +288,27 @@ body{
     .grafico {
         background-color: white;
         padding: 20px;
-        border-radius: 15px;
+        border-radius: 0px 15px 15px 15px;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        position: relative;
     }
+
+
+    #tituloGrafico{
+    position: absolute;
+    top: -35px;
+
+    left: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #fff;
+  padding: 8px;
+  font-family: "Sofia sans";
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  color: var(--cinzaEscuro);
+}
 
     canvas {
         width: 500px;

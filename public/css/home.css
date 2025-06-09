@@ -55,6 +55,35 @@ header nav{
     
 }
 
+#btnLinks{
+    display: block;
+    width: 100px;
+    height: 35px;
+    background-color: #232323;
+    margin-right: 5%;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    color: #fff;
+    font-family: "Fredoka";
+    border-radius: 5px;
+
+}
+
+#btnLinksP{
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    font-family: "Fredoka";
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    width: 100px;
+    height: 35px;
+    background-color: #232323;
+    margin-right: 5%;
+}
+
 .logo{
     width: 200px;
     height: 35px;

@@ -1,75 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="../js/sessao.js"></script>
-    <link rel="stylesheet" href="../css/home.css">
-</head>
+    <link rel="stylesheet" href="../css/home.css" />
+  </head>
 
-
-<body onload="validarSessao()">
-
-
+  <body onload="validarSessao()">
     <div class="container">
-        <img src="../assets/img/blob01.svg" alt="" id="blob01">
-        <img src="../assets/img/cadastro/detalhe02.svg" alt="" id="blob02">
+      <img src="../assets/img/blob01.svg" alt="" id="blob01" />
+      <img src="../assets/img/cadastro/detalhe02.svg" alt="" id="blob02" />
 
-        <header>
+      <header>
+        <nav>
+          <div style="width: 300px; display: flex; align-items: center">
+            <h1 class="logo">SEMPRE <span>PERTO</span></h1>
+          </div>
 
-            <nav>
-                
+          <div
+            class="box_input"
+            style="width: 300px; display: flex; justify-content: space-between"
+          >
+            <input
+              type="text"
+              oninput="fazerPesquisa()"
+              onchange="usuarioSelecionado()"
+              id="input_pesquisar"
+              placeholder="Pesquisar..."
+            /><br />
+            <button
+              onclick="usuarioSelecionado()"
+              class="btn_pesquisar"
+            ></button>
+            <div id="usuarios_pesquisa"></div>
+          </div>
 
-                <div style="width: 300px; display: flex; align-items: center;">
-                    <h1 class="logo">SEMPRE <span>PERTO</span></h1>
-                </div>
+          <div
+            style="
+              width: 350px;
+              display: flex;
+              justify-content: flex-end;
+              padding-right: 25px;
+            "
+          >
+            <a href="dashboard.html" id="btnLinks">Dash</a>
+            <a href="perfil.html" id="btnLinksP">Perfil</a>
+            <div id="perfil_usuario"></div>
+          </div>
+          <button class="btn-logout" onclick="limparSessao()">
+            <h3>sair</h3>
+          </button>
+        </nav>
+      </header>
 
-                <div class="box_input" style="width: 300px; display: flex; justify-content: space-between;">
-                    <input type="text" oninput="fazerPesquisa()" onchange="usuarioSelecionado()" id="input_pesquisar" placeholder="Pesquisar..."><br>
-                    <button onclick="usuarioSelecionado()" class="btn_pesquisar"></button>
-                    <div id="usuarios_pesquisa"></div>
-                </div>
-
-                <div style="width: 300px; display: flex; justify-content: flex-end; padding-right: 25px;">
-                    <a href="dashboard.html">dash</a>
-                        <a href="perfil.html" style="margin-left: 20%;">Perfil</a>
-                     <div id="perfil_usuario">
-                     </div>
-                </div>
-                <button class="btn-logout" onclick="limparSessao()">
-                        <h3>sair</h3>
-                    </button>
-            </nav>
-        </header>
-
-
-
-        <div class="conteudoSecundario">
-            <div class="boxCards">
-                <div class="card" style="margin-top: 40px;">
-                    <p>Você acaba de dar <span style="color: #F92626">entrada</span> no <span style="color: #8B26EC">Hospital</span> das <span style="color: #F5CD28">Emoções</span></p>
-                </div>
-                <div class="card">
-                    <p>Cada <span style="color: #297AED">emoção</span> tem uma <span style="color: #F57A25">história</span> para contar.</p>
-                </div>
-            </div>
-            <div class="conteudoPostagens">
-                <div id="postagens">
-                </div>
-            </div>
+      <div class="conteudoSecundario">
+        <div class="boxCards">
+          <div class="card" style="margin-top: 40px">
+            <p>
+              Você acaba de dar <span style="color: #f92626">entrada</span> no
+              <span style="color: #8b26ec">Hospital</span> das
+              <span style="color: #f5cd28">Emoções</span>
+            </p>
+          </div>
+          <div class="card">
+            <p>
+              Cada <span style="color: #297aed">emoção</span> tem uma
+              <span style="color: #f57a25">história</span> para contar.
+            </p>
+          </div>
         </div>
-
-
-
-
-        
-
+        <div class="conteudoPostagens">
+          <div id="postagens"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Back-end para puxar postagens comentarios etc...  -->
     <script src="../js/home.js"></script>
-</body>
-
+  </body>
 </html>

@@ -37,6 +37,36 @@ body{
     text-align: right;
 }
 
+#btnLinks{
+    width: 100px;
+    height: 35px;
+    background-color: #232323;
+    margin-right: 5%;
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    color: #fff;
+    font-family: "Fredoka";
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+#btnLinksP{
+    text-align: center;
+    line-height: 35px;
+    text-decoration: none;
+    font-family: "Fredoka";
+    color: #fff;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    background-color: #232323;
+    margin-right: 5%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+
 #perfil_usuario img{
     width: 40px;
     height: 40px;
