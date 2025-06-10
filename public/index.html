@@ -15,7 +15,7 @@
     ></audio>
 
     <!-- intro do web site! -->
-    <div class="intro-screen">
+    <div class="intro-screen" style="display: none;">
       <h1 class="intro-title">
         <span class="left">SEMPRE</span>
         <span class="right">PERTO</span>
@@ -116,7 +116,7 @@
               chegar em casa e começar a sentir fortes dores em um dos rins, até
               o momento pensei que fosse normal
             </p>
-            <img src="assets/img/alegria.svg" alt="" />
+            
           </div>
           <button class="prox" onclick="proximo()" id="btnEstilo"></button>
         </div>
@@ -129,34 +129,87 @@
       </h1>
       <div class="left">
         <p class="text-title">
-          faça <span style="color: #8b26ec;">login</span> e fique ainda mais <span style="color: #297aed;">próximo</span> de seus <span style="color: #f5cd28;">familiares</span> e <span style="color: #f57a25;">amigos</span>
+          faça <span style="color: #8b26ec">login</span> e fique ainda mais
+          <span style="color: #297aed">próximo</span> de seus
+          <span style="color: #f5cd28">familiares</span> e
+          <span style="color: #f57a25">amigos</span>
         </p>
         <div class="box-text">
           <p>
-            Com a nossa rede social, <span style="color: #000; font-weight: 600; text-transform: uppercase;">Sempre <span style="color: #f5cd28;">Perto</span></span>, você estará mais próximo da
-            sua família, mesmo que a distância seja grande. Em momentos
-            difíceis, lembre-se: <span style="color: #297aed;">você nunca estará sozinho</span>.
+            Com a nossa rede social,
+            <span
+              style="color: #000; font-weight: 600; text-transform: uppercase"
+              >Sempre <span style="color: #f5cd28">Perto</span></span
+            >, você estará mais próximo da sua família, mesmo que a distância
+            seja grande. Em momentos difíceis, lembre-se:
+            <span style="color: #297aed">você nunca estará sozinho</span>.
           </p>
         </div>
-        <img src="assets/img/ansiedadeComunicado.svg" alt="" class="ansiedade">
+        <img
+          src="assets/img/ansiedadeComunicado.svg"
+          alt=""
+          class="ansiedade"
+        />
         <div class="redes-sociais">
           <button class="whatsapp">whatsapp</button>
           <button class="instagram"></button>
         </div>
       </div>
       <div class="right">
-
         <div class="cards">
-          <img src="assets/img/tristezaProjeto.svg" alt="" class="tristeza">
+          <img src="assets/img/tristezaProjeto.svg" alt="" class="tristeza" />
           <button class="btnLeft" onclick="anteriorC()"></button>
           <div class="carroselCards" id="cardCarrosel">
-            <img src="assets/img/01.PNG" alt="">
+            <img src="assets/img/01.PNG" alt="" />
           </div>
           <button class="btnRight" onclick="proximoC()"></button>
         </div>
       </div>
     </section>
-    <section class="momentos" id="momentos"></section>
+    <section class="momentos" id="momentos">
+      <h1 class="title-moments">MOMENTOS DAS EMOÇÕES</h1>
+      <img src="assets/img/blobMomentos.svg" alt="" />
+      <div class="box_cards">
+        <button class="btnAnt" onclick="antCard()"><</button>
+        <div class="cards">
+          <div class="imagem" id="imagem01"></div>
+          <div class="text">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam,
+              praesentium neque! Numquam laboriosam ut, totam possimus quis
+              doloremque omnis illo saepe aspernatur assumenda, placeat facere
+              voluptatum officiis cumque voluptate architecto!
+            </p>
+          </div>
+          <h1>ass: <span>NOJINHO🟢</span></h1>
+        </div>
+        <div class="cards">
+          <div class="imagem" id="imagem02"></div>
+          <div class="text">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam,
+              praesentium neque! Numquam laboriosam ut, totam possimus quis
+              doloremque omnis illo saepe aspernatur assumenda, placeat facere
+              voluptatum officiis cumque voluptate architecto!
+            </p>
+          </div>
+          <h1>ass: <span>NOJINHO🟢</span></h1>
+        </div>
+        <div class="cards">
+          <div class="imagem" id="imagem03"></div>
+          <div class="text">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam,
+              praesentium neque! Numquam laboriosam ut, totam possimus quis
+              doloremque omnis illo saepe aspernatur assumenda, placeat facere
+              voluptatum officiis cumque voluptate architecto!
+            </p>
+          </div>
+          <h1>ass: <span>NOJINHO🟢</span></h1>
+        </div>
+        <button class="btnProx" onclick="proxCard()">></button>
+      </div>
+    </section>
     <footer></footer>
   </body>
 </html>
@@ -200,11 +253,6 @@
   }
 
   var contadorProx = 0;
-  var imagensEmocoes = [
-    "assets/img/alegria.svg",
-    "assets/img/ansiedade.svg",
-    "assets/img/alegria.svg",
-  ];
   var titulos = [
     "nem tudo está perdido, TUDO COMEÇOU EM 2019",
     "title2",
@@ -240,7 +288,7 @@
         informacoesCard.innerHTML = `
         <h1>${titulos[i]}</h1>
               <p>${textos[i]}</p>
-              <img src="${imagensEmocoes[i]}">
+              
       `;
       }
     }
@@ -249,20 +297,20 @@
   function fechar() {
     historiaLembrancas.style.display = "none";
   }
-  
+
   var contadorCarrosel = 0;
   var imagensCarrosel = [
     "assets/img/01.PNG",
     "assets/img/02.PNG",
     "assets/img/03.PNG",
     "assets/img/04.PNG",
-    "assets/img/05.PNG"
+    "assets/img/05.PNG",
   ];
 
   setInterval(() => {
     contadorCarrosel + 1;
     proximoC();
-    console.log(contadorCarrosel)
+    console.log(contadorCarrosel);
   }, 6000);
 
   function proximoC() {
@@ -270,11 +318,11 @@
       contadorCarrosel++;
     } else if (contadorCarrosel == 1) {
       contadorCarrosel++;
-    }else if (contadorCarrosel == 2) {
+    } else if (contadorCarrosel == 2) {
       contadorCarrosel++;
     } else if (contadorCarrosel == 3) {
       contadorCarrosel++;
-    }else {
+    } else {
       contadorCarrosel = 0;
     }
     console.log("contador: " + contadorCarrosel);
@@ -290,12 +338,12 @@
     if (contadorCarrosel == 4) {
       contadorCarrosel--;
     } else if (contadorCarrosel == 3) {
-      contadorCarrosel --;
-    }else if (contadorCarrosel == 2) {
-      contadorCarrosel --;
-    }else if (contadorCarrosel == 1) {
-      contadorCarrosel --;
-    }else if (contadorCarrosel == 0) {
+      contadorCarrosel--;
+    } else if (contadorCarrosel == 2) {
+      contadorCarrosel--;
+    } else if (contadorCarrosel == 1) {
+      contadorCarrosel--;
+    } else if (contadorCarrosel == 0) {
       contadorCarrosel = 4;
     }
     console.log("contador: " + contadorCarrosel);
@@ -304,6 +352,114 @@
         cardCarrosel.innerHTML = `
               <img src="${imagensCarrosel[i]}">
       `;
+      }
+    }
+  }
+
+  let contadorImagensCard = 0;
+
+  let listaImagensCards = [
+    "assets/img/nojinho.svg",
+    "assets/img/raiva.svg",
+    "assets/img/tristesa.svg",
+    "assets/img/alegria.svg",
+    "assets/img/medo.svg",
+    "assets/img/ansiedade.svg"
+  ];
+
+  function proxCard() {
+    if (contadorImagensCard == 0) {
+      contadorImagensCard++;
+      imagem01.style.backgroundImage = `url(${listaImagensCards[3]})`;
+      imagem01.style.backgroundPosition = "center center";
+      imagem01.style.backgroundRepeat = "no-repeat";
+      imagem01.style.backgroundSize = "33%";
+      imagem01.style.border = "4px solid #F5CD28";
+      imagem01.style.backgroundColor = "#F8E073";
+      imagem02.style.backgroundImage = `url(${listaImagensCards[4]})`;
+      imagem02.style.backgroundPosition = "center center";
+      imagem02.style.backgroundRepeat = "no-repeat";
+      imagem02.style.backgroundSize = "33%";
+      imagem02.style.border = "4px solid #8B26EC";
+      imagem02.style.backgroundColor = "#CB97FF";
+      imagem03.style.backgroundImage = `url(${listaImagensCards[5]})`;
+      imagem03.style.backgroundPosition = "center center";
+      imagem03.style.backgroundRepeat = "no-repeat";
+      imagem03.style.backgroundSize = "55%";
+      imagem03.style.border = "4px solid #F57A25";
+      imagem03.style.backgroundColor = "#FDC39B";
+
+    } else if (contadorImagensCard == 1) {
+      contadorImagensCard = 0;
+      imagem01.style.backgroundImage = `url(${listaImagensCards[0]})`;
+      imagem01.style.backgroundPosition = "center center";
+      imagem01.style.backgroundRepeat = "no-repeat";
+      imagem01.style.backgroundSize = "70%";
+      imagem01.style.border = "4px solid #0EA34E";
+      imagem01.style.backgroundColor = "#8BDBAB";
+      
+      imagem02.style.backgroundImage = `url(${listaImagensCards[1]})`;
+      imagem02.style.backgroundPosition = "center center";
+      imagem02.style.backgroundRepeat = "no-repeat";
+      imagem02.style.backgroundSize = "70%";
+      imagem02.style.border = "4px solid #f92626";
+      imagem02.style.backgroundColor = "#FD9A9B";
+      
+      imagem03.style.backgroundImage = `url(${listaImagensCards[2]})`;
+      imagem03.style.backgroundPosition = "center center";
+      imagem03.style.backgroundRepeat = "no-repeat";
+      imagem03.style.backgroundSize = "70%";
+      imagem03.style.border = "4px solid #297AED";
+      imagem03.style.backgroundColor = "#99CDFF";
+    }
+
+    for (let i = 0; i <= contadorImagensCard; i++) {
+      if (i == contadorImagensCard) {
+        console.log("Contagem: " + contadorImagensCard);
+      }
+    }
+  }
+
+  function antCard() {
+    if (contadorImagensCard == 1) {
+      contadorImagensCard--;
+      imagem01.style.backgroundImage = `url(${listaImagensCards[1]})`;
+      imagem01.style.backgroundPosition = "center center";
+      imagem01.style.backgroundRepeat = "no-repeat";
+      imagem01.style.backgroundSize = "33%";
+      imagem01.style.border = "3px solid #8b26ec";
+      imagem02.style.backgroundImage = `url(${listaImagensCards[0]})`;
+      imagem02.style.backgroundPosition = "center center";
+      imagem02.style.backgroundRepeat = "no-repeat";
+      imagem02.style.backgroundSize = "33%";
+      imagem02.style.border = "3px solid #f5cd28";
+      imagem03.style.backgroundImage = `url(${listaImagensCards[2]})`;
+      imagem03.style.backgroundPosition = "center center";
+      imagem03.style.backgroundRepeat = "no-repeat";
+      imagem03.style.backgroundSize = "33%";
+      imagem03.style.border = "3px solid #f57a25";
+    } else if (contadorImagensCard == 0) {
+      contadorImagensCard = 1;
+      imagem01.style.backgroundImage = `url(${listaImagensCards[0]})`;
+      imagem01.style.backgroundPosition = "center center";
+      imagem01.style.backgroundRepeat = "no-repeat";
+      imagem01.style.backgroundSize = "33%";
+      imagem01.style.border = "3px solid #0EA34E";
+      imagem02.style.backgroundImage = `url(${listaImagensCards[1]})`;
+      imagem02.style.backgroundPosition = "center center";
+      imagem02.style.backgroundRepeat = "no-repeat";
+      imagem02.style.backgroundSize = "33%";
+      imagem02.style.border = "3px solid #f92626";
+      imagem03.style.backgroundImage = `url(${listaImagensCards[2]})`;
+      imagem03.style.backgroundPosition = "center center";
+      imagem03.style.backgroundRepeat = "no-repeat";
+      imagem03.style.backgroundSize = "33%";
+      imagem03.style.border = "3px solid #297aed";
+    }
+
+    for (let i = 0; i <= contadorImagensCard; i++) {
+      if (i == contadorImagensCard) {
+        console.log("Contagem anterior: " + contadorImagensCard);
       }
     }
   }
